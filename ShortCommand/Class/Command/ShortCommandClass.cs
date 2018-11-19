@@ -88,18 +88,17 @@ namespace ShortCommand.Class.Command
         /// <returns></returns>
         private string GetCommand(string originalShortName)
         {
-            //简称是URL网址，直接打开网页
-            if (IsWellFormedUriString(originalShortName))
-            {
-                return string.Format("start \"\" \"{0}\"", originalShortName);
-            }
-
             string upperShortName = originalShortName.ToUpper();
             string command;
-            //简称不存在，则搜索该简称
+            //简称不存在
             if (!upperShortNameAndCommands.TryGetValue(upperShortName, out command))
             {
-
+                //简称是URL网址，直接打开网页
+                if (IsWellFormedUriString(originalShortName))
+                {
+                    return string.Format("start \"\" \"{0}\"", originalShortName);
+                }
+                //搜索该简称
                 return GetSearchCommand(originalShortName);
             }
 
