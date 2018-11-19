@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+  <AppSettings>
+
+    <!--是否开机自启动，默认true -->
+    <IsAutoStartup>true</IsAutoStartup>
+    <!--是否置顶，默认false-->
+    <IsTopmost>false</IsTopmost>
+    <!--搜索引擎，baidu和google搜索-->
+    <SearchEngine>baidu</SearchEngine>
+
+  </AppSettings>
+
+  <CommandSettings>
+
+    <!--命令/网址信息-->
+    <CommandInfos>
+      <CommandInfo Command="cmd" ShortName="cmd" />
+      <CommandInfo Command="calc" ShortName="cal" />
+      <CommandInfo Command="taskmgr" ShortName="task" />
+      <CommandInfo Command="control.exe" ShortName="ctrl" />
+      <CommandInfo Command="http://www.baidu.com" ShortName="百度" />
+      <CommandInfo Command="https://www.google.com/" ShortName="google" />
+    </CommandInfos>
+
+    <!--路径信息-->
+    <PathInfos>
+      <CommandInfo Command="C:\" ShortName="c" />
+      <CommandInfo Command="D:\" ShortName="d" />
+    </PathInfos>
+
+  </CommandSettings>
+
+</configuration>
