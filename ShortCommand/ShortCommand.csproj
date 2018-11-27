@@ -56,10 +56,8 @@
     <Compile Include="Class\Helper\StringExtension.cs" />
     <Compile Include="Class\Setting\AllSettingClass.cs" />
     <Compile Include="Class\Setting\AppConfigClass.cs" />
+    <Compile Include="Class\Setting\AppSettingValue.cs" />
     <Compile Include="Class\Setting\CommandConfigClass.cs" />
-    <Compile Include="Class\Setting\SettingItems\AutoStartupClass.cs" />
-    <Compile Include="Class\Setting\SettingItems\IsTopmostClass.cs" />
-    <Compile Include="Class\Setting\SettingItems\SearchEngineClass.cs" />
     <Compile Include="Class\Setting\XmlFileClass.cs" />
     <Compile Include="Class\HotKey\SystemHotKey.cs" />
     <Compile Include="MainForm.cs">

@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Xml;
 using ShortCommand.Class.Helper;
 
 namespace ShortCommand.Class.Setting
 {
     /// <summary>
-    /// 程序配置
+    /// 程序自身的配置
     /// </summary>
     class AppConfigClass
     {
@@ -53,7 +52,7 @@ namespace ShortCommand.Class.Setting
             //文件不存在，则返回
             if (FileAndDirectoryHelper.FileIsNotExists(filePath))
             {
-                MessageBox.Show(string.Format("配置文件不存在：{0}", filePath), @"错误");
+                MessageBoxHelper.ShowErrorMessageBox(string.Format("配置文件不存在：{0}", filePath));
                 return;
             }
             var xmlDoc = XmlFileClass.LoadXmlFile(filePath);

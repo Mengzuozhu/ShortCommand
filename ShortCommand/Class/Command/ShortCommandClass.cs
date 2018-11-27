@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ShortCommand.Class.Helper;
 using ShortCommand.Class.Setting;
-using ShortCommand.Class.Setting.SettingItems;
 
 namespace ShortCommand.Class.Command
 {
@@ -156,7 +155,7 @@ namespace ShortCommand.Class.Command
         {
             //对要搜索的字符串进行转义编码，因为URL中某些特殊字符不能直接使用
             string escapeShortName = Uri.EscapeDataString(shortName);
-            var searchEngineUrl = SearchEngineClass.GetSearchEngineUrl();
+            var searchEngineUrl = AppSettingValue.SearchEngineUrl;
             return string.Format("start \"\" \"{0}{1}\"", searchEngineUrl, escapeShortName);
         }
 

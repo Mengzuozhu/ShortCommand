@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using ShortCommand.Class.Command;
 using ShortCommand.Class.Helper;
 using ShortCommand.Class.Setting;
-using ShortCommand.Class.Setting.SettingItems;
 
 namespace ShortCommand.ViewForm
 {
@@ -56,9 +55,9 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void InitSetting()
         {
-            IsAutoStartupMenuItem.Checked = AutoStartupClass.GetIsAutoStartup();
+            IsAutoStartupMenuItem.Checked = AppSettingValue.IsAutoStartup;
             IsAutoStartupMenuItem.CheckOnClick = true;
-            IsTopmostMenuItem.Checked = IsTopmostClass.GetIsTopmost();
+            IsTopmostMenuItem.Checked = AppSettingValue.IsTopmost;
             IsTopmostMenuItem.CheckOnClick = true;
             InitSearchEngine();
         }
@@ -247,7 +246,7 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void InitSearchEngine()
         {
-            GoogleSearchMenuItem.Checked = SearchEngineClass.IsGoogleSearch();
+            GoogleSearchMenuItem.Checked = AppSettingValue.IsGoogleSearch;
             BaiduSearchMenuItem.Checked = !GoogleSearchMenuItem.Checked;
         }
 
@@ -346,9 +345,9 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void WriteSetting()
         {
-            AutoStartupClass.ChangeAutoStartUp(IsAutoStartupMenuItem.Checked);
-            IsTopmostClass.ChangeIsTopmost(IsTopmostMenuItem.Checked);
-            SearchEngineClass.WriteSearchEngine(GoogleSearchMenuItem.Checked);
+            AppSettingValue.IsAutoStartup = IsAutoStartupMenuItem.Checked;
+            AppSettingValue.IsTopmost = IsTopmostMenuItem.Checked;
+            AppSettingValue.IsGoogleSearch = GoogleSearchMenuItem.Checked;
             AllSettingClass.WriteAllSetting(shortCommandTable.ShortNameAndCommands);
         }
 

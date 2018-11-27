@@ -8,9 +8,9 @@ namespace ShortCommand.Class.Setting
     /// </summary>
     class AllSettingClass
     {
-        private static Dictionary<string, string> appSettings; //程序配置
+        private static Dictionary<string, string> appSettings; //程序配置项和值
         private static CommandConfigClass commandConfigFile; //命令配置
-        private static AppConfigClass appConfigFile; //程序配置
+        private static AppConfigClass appConfigFile; //程序自身的配置
 
         static AllSettingClass()
         {
@@ -102,16 +102,6 @@ namespace ShortCommand.Class.Setting
         public static void ChangeSettingValueFor(string key, string value)
         {
             appSettings[key] = value;
-        }
-
-        /// <summary>
-        /// 布尔值转为字符串(true或false)
-        /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static string BoolToString(bool b)
-        {
-            return b ? "true" : "false";
         }
 
     }

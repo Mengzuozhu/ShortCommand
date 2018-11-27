@@ -4,7 +4,7 @@ using System.Windows.Forms;
 using ShortCommand.Class.Command;
 using ShortCommand.Class.Helper;
 using ShortCommand.Class.HotKey;
-using ShortCommand.Class.Setting.SettingItems;
+using ShortCommand.Class.Setting;
 using ShortCommand.ViewForm;
 
 namespace ShortCommand
@@ -179,7 +179,7 @@ namespace ShortCommand
         /// </summary>
         private void ShowFormAndFocusInputBox()
         {
-            TopMost = IsTopmostClass.GetIsTopmost();
+            TopMost = AppSettingValue.IsTopmost;
             WindowState = FormWindowState.Normal;
             this.Visible = true;
             this.Activate();
@@ -257,7 +257,7 @@ namespace ShortCommand
         /// <param name="inShortNameAndCommands"></param>
         private void UpdateShortNameAndCommands(Dictionary<string, string> inShortNameAndCommands)
         {
-            TopMost = IsTopmostClass.GetIsTopmost();
+            TopMost = AppSettingValue.IsTopmost;
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
             AddAutoCompleteSource();
         }
