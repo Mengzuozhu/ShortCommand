@@ -6,6 +6,8 @@ namespace ShortCommand
 {
     static class Program
     {
+        private static Mutex mutex;
+
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
@@ -13,7 +15,7 @@ namespace ShortCommand
         static void Main()
         {
             bool createdNew;
-            Mutex mutex = new Mutex(true, Application.ProductName, out createdNew);
+            mutex = new Mutex(true, Application.ProductName, out createdNew);
             //没有创建新的程序
             if (!createdNew)
             {
