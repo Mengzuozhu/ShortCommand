@@ -49,6 +49,7 @@
     <Compile Include="Class\Command\ShortCommandClass.cs" />
     <Compile Include="Class\Command\ShortCommandTableClass.cs" />
     <Compile Include="Class\Command\WinCommandClass.cs" />
+    <Compile Include="Class\Display\ToolTipDisplayClass.cs" />
     <Compile Include="Class\Finder\FinderClass.cs" />
     <Compile Include="Class\Helper\FileAndDirectoryHelper.cs" />
     <Compile Include="Class\Helper\FormHelper.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ShortCommand.Class.Command;
+using ShortCommand.Class.Display;
 using ShortCommand.Class.Helper;
 using ShortCommand.Class.HotKey;
 using ShortCommand.Class.Setting;
@@ -14,6 +15,7 @@ namespace ShortCommand
         private const int MaxShortNameItemsCount = 5; //下拉框历史命令上限
         private ShortCommandClass shortCommand; //快捷命令
         private SettingForm settingForm; //配置窗口
+        private ToolTipDisplayClass toolTipDisplay;
 
         public MainForm()
         {
@@ -37,6 +39,8 @@ namespace ShortCommand
             ShowFormAndFocusInputBox();
             InitShortNameComboBox();
             AddAutoCompleteSource();
+            cboShortName.DrawMode = DrawMode.OwnerDrawFixed;
+            toolTipDisplay = new ToolTipDisplayClass(cboShortName, shortCommand);
         }
 
         /// <summary>
@@ -67,6 +71,7 @@ namespace ShortCommand
         {
             if (e.KeyCode != Keys.Enter) return;
 
+            toolTipDisplay.ShowToolTip(cboShortName.Text);
             shortCommand.RunCommandByShortNameOf(cboShortName.Text, BeginInvokeInsertShortName);
         }
 
@@ -264,7 +269,7 @@ namespace ShortCommand
 
         #endregion
 
-        #region 关闭
+        #region 主窗口事件
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -277,6 +282,15 @@ namespace ShortCommand
             {
                 appNotifyIcon.Dispose();
             }
+        }
+
+        private void MainForm_MouseLeave(object sender, EventArgs e)
+        {
+            if (cboShortName.Bounds.Contains(MousePosition))
+            {
+                return;
+            }
+            toolTipDisplay.HideToolTip();
         }
 
         #endregion

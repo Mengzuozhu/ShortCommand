@@ -48,6 +48,7 @@
             this.btnClearInvalidPath = new System.Windows.Forms.Button();
             this.chbShowRepeatedCommand = new System.Windows.Forms.CheckBox();
             this.btnFind = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.TablePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCommandAndNames)).BeginInit();
             this.RowContextMenuStrip.SuspendLayout();
@@ -84,7 +85,7 @@
             this.TablePanel.Controls.Add(this.dgvCommandAndNames);
             this.TablePanel.Location = new System.Drawing.Point(12, 27);
             this.TablePanel.Name = "TablePanel";
-            this.TablePanel.Size = new System.Drawing.Size(602, 420);
+            this.TablePanel.Size = new System.Drawing.Size(602, 401);
             this.TablePanel.TabIndex = 3;
             this.TablePanel.SizeChanged += new System.EventHandler(this.TablePanel_SizeChanged);
             // 
@@ -97,7 +98,7 @@
             this.dgvCommandAndNames.Location = new System.Drawing.Point(0, 0);
             this.dgvCommandAndNames.Name = "dgvCommandAndNames";
             this.dgvCommandAndNames.RowTemplate.Height = 23;
-            this.dgvCommandAndNames.Size = new System.Drawing.Size(602, 420);
+            this.dgvCommandAndNames.Size = new System.Drawing.Size(602, 401);
             this.dgvCommandAndNames.TabIndex = 4;
             this.dgvCommandAndNames.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvCommandAndNames_CellBeginEdit);
             this.dgvCommandAndNames.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCommandAndNames_CellEndEdit);
@@ -163,7 +164,7 @@
             this.BaiduSearchMenuItem,
             this.GoogleSearchMenuItem});
             this.SearchEngineMenuItem.Name = "SearchEngineMenuItem";
-            this.SearchEngineMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SearchEngineMenuItem.Size = new System.Drawing.Size(124, 22);
             this.SearchEngineMenuItem.Text = "搜索引擎";
             // 
             // BaiduSearchMenuItem
@@ -186,14 +187,14 @@
             // 
             this.IsAutoStartupMenuItem.CheckOnClick = true;
             this.IsAutoStartupMenuItem.Name = "IsAutoStartupMenuItem";
-            this.IsAutoStartupMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.IsAutoStartupMenuItem.Size = new System.Drawing.Size(124, 22);
             this.IsAutoStartupMenuItem.Text = "开机启动";
             // 
             // IsTopmostMenuItem
             // 
             this.IsTopmostMenuItem.CheckOnClick = true;
             this.IsTopmostMenuItem.Name = "IsTopmostMenuItem";
-            this.IsTopmostMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.IsTopmostMenuItem.Size = new System.Drawing.Size(124, 22);
             this.IsTopmostMenuItem.Text = "置顶";
             // 
             // btnClearInvalidPath
@@ -230,11 +231,21 @@
             this.btnFind.UseVisualStyleBackColor = true;
             this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 431);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(305, 12);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "提示：拖动文件（文件夹）到表格中，即可添加对应路径";
+            // 
             // SettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 488);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnFind);
             this.Controls.Add(this.chbShowRepeatedCommand);
             this.Controls.Add(this.btnClearInvalidPath);
@@ -279,5 +290,6 @@
         private System.Windows.Forms.ToolStripMenuItem SearchEngineMenuItem;
         private System.Windows.Forms.ToolStripMenuItem BaiduSearchMenuItem;
         private System.Windows.Forms.ToolStripMenuItem GoogleSearchMenuItem;
+        private System.Windows.Forms.Label label1;
     }
 }

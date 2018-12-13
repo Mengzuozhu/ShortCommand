@@ -1,4 +1,6 @@
-﻿namespace ShortCommand
+﻿using System.Windows.Forms;
+
+namespace ShortCommand
 {
     partial class MainForm
     {
@@ -103,6 +105,7 @@
             this.Text = "快捷命令";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
             this.NotifyIconMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 

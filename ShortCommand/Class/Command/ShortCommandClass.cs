@@ -87,10 +87,9 @@ namespace ShortCommand.Class.Command
         /// <returns></returns>
         private string GetCommand(string originalShortName)
         {
-            string upperShortName = originalShortName.ToUpper();
-            string command;
+            string command = GetCommandFormSetting(originalShortName);
             //简称不存在
-            if (!upperShortNameAndCommands.TryGetValue(upperShortName, out command))
+            if (string.IsNullOrEmpty(command))
             {
                 //简称是URL网址，直接打开网页
                 if (IsWellFormedUriString(originalShortName))
@@ -124,6 +123,24 @@ namespace ShortCommand.Class.Command
             }
 
             return string.Format("start \"\" {0}", command);
+        }
+
+        /// <summary>
+        /// 从配置中获取命令
+        /// </summary>
+        /// <param name="originalShortName"></param>
+        /// <returns></returns>
+        public string GetCommandFormSetting(string originalShortName)
+        {
+            string upperShortName = originalShortName.ToUpper();
+            string command;
+            //简称不存在
+            if (upperShortNameAndCommands.TryGetValue(upperShortName, out command))
+            {
+                return command;
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
