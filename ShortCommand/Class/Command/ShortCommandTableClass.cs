@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Windows.Forms;
 using ShortCommand.Class.Helper;
 
@@ -45,7 +46,6 @@ namespace ShortCommand.Class.Command
                 row[ShortName] = shortNameAndExePath.Key;
                 ShortNameAndCommandsTable.Rows.Add(row);
             }
-
         }
 
         /// <summary>
@@ -107,6 +107,7 @@ namespace ShortCommand.Class.Command
             {
                 return ShortNameAndCommandsTable;
             }
+
             //重复项为空
             if (repeatedCommandTable.Rows.Count == 0)
             {
@@ -120,17 +121,40 @@ namespace ShortCommand.Class.Command
         }
 
         /// <summary>
-        /// 添加文件路径到行
+        /// 添加拖拽的文件路径到行
         /// </summary>
-        /// <param name="files"></param>
-        public void AddFilesToRow(string[] files)
+        /// <param name="filePaths"></param>
+        public void AddDragFilesToRow(string[] filePaths)
         {
-            foreach (string file in files)
+            foreach (string filePath in filePaths)
             {
                 DataRow row = ShortNameAndCommandsTable.NewRow();
-                row[RealCommandName] = file;
+                row[RealCommandName] = filePath;
+                SetDefaultShortNameForDragFile(filePath, row);
                 ShortNameAndCommandsTable.Rows.Add(row);
             }
+        }
+
+        /// <summary>
+        /// 为拖拽文件设置默认快捷命令
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="row"></param>
+        private void SetDefaultShortNameForDragFile(string filePath, DataRow row)
+        {
+            string fileName = Path.GetFileName(filePath);
+            if (fileName == null) return;
+
+            int i = 1;
+            string newFileName = fileName;
+            //若配置中存在同名快捷命令，则修改新增的文件名
+            while (GetSameShortNameIgnoreCaseIndex(newFileName, -1) != -1)
+            {
+                newFileName = string.Format("{0}({1})", fileName, i++);
+            }
+
+            //取拖拽文件的文件名作为默认快捷命令
+            row[ShortName] = newFileName;
         }
 
         /// <summary>
@@ -166,29 +190,31 @@ namespace ShortCommand.Class.Command
                 {
                     continue;
                 }
+
                 string commandName = ShortNameAndCommandsTable.Rows[i][RealCommandName].ToString();
                 ShortNameAndCommands[shortName] = commandName;
             }
         }
 
         /// <summary>
-        /// 已经有同样的命令简称
+        /// 获取配置中相同快捷命令的行位置
         /// </summary>
-        /// <param name="shortName">简称</param>
-        /// <param name="currentRowIndex">当前简称所在行索引</param>
+        /// <param name="newShortName">新增的快捷命令</param>
+        /// <param name="currentRowIndex">新增的快捷命令所在行索引，-1表示忽略该行索引</param>
         /// <returns></returns>
-        public int HasSameShortNameIgnoreCase(string shortName, int currentRowIndex)
+        public int GetSameShortNameIgnoreCaseIndex(string newShortName, int currentRowIndex)
         {
             StringComparison stringComparison = StringComparison.OrdinalIgnoreCase;
             for (int i = 0; i < ShortNameAndCommandsTable.Rows.Count; i++)
             {
                 if (!ShortNameAndCommandsTable.Rows[i][ShortName].ToString()
-                    .Equals(shortName, stringComparison)) continue;
+                    .Equals(newShortName, stringComparison)) continue;
 
                 if (i == currentRowIndex)
                 {
                     continue;
                 }
+
                 return i;
             }
 
@@ -230,6 +256,5 @@ namespace ShortCommand.Class.Command
                 ShortNameAndCommandsTable.Rows[selectRowIndex][RealCommandName] = path;
             }
         }
-
     }
 }

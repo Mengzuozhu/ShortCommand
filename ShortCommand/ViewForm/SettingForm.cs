@@ -148,8 +148,8 @@ namespace ShortCommand.ViewForm
         //拖拽完成
         private void dgvCommandAndNames_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            shortCommandTable.AddFilesToRow(files);
+            string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            shortCommandTable.AddDragFilesToRow(filePaths);
             BeginEditLastRowShortName();
         }
 
@@ -224,14 +224,18 @@ namespace ShortCommand.ViewForm
             if (columnIndex != 1) return;
 
             int currentRowIndex = e.RowIndex;
-            string shortName = dgvCommandAndNames.Rows[currentRowIndex].Cells[columnIndex].Value.ToString();
+            object value = dgvCommandAndNames.Rows[currentRowIndex].Cells[columnIndex].Value;
+            if (value == null)
+            {
+                return;
+            }
 
-            int sameCellRowIndex = shortCommandTable.HasSameShortNameIgnoreCase(shortName, currentRowIndex);
+            string shortName = value.ToString();
+            int sameCellRowIndex = shortCommandTable.GetSameShortNameIgnoreCaseIndex(shortName, currentRowIndex);
             if (sameCellRowIndex != -1)
             {
                 dgvCommandAndNames.Rows[sameCellRowIndex].Selected = true;
-                MessageBox.Show(string.Format("忽略大小写的简称已存在，在第{0}行！", sameCellRowIndex + 1), @"提示",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxHelper.ShowWarningMessageBox(string.Format("编辑失败，因为忽略大小写的快捷命令已存在，在第{0}行！", sameCellRowIndex + 1));
                 //恢复编辑之前的值
                 dgvCommandAndNames.Rows[currentRowIndex].Cells[columnIndex].Value = cellBeginEditValue;
             }
