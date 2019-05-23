@@ -1,7 +1,9 @@
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0523/162148_28a3c598_1481073.gif "shortcommand.gif")
 # ShortCommand
-基于Windows命令行，用户可使用自定义的快捷命令，直接打开已设置的文件、文件夹和网页，以及当轻量搜索引擎使用
+基于Windows命令行，用户可使用**自定义快捷命令**，直接打开已设置的**文件、文件夹和网页，以及当轻量搜索引擎使用**
 
-GitHub: https://github.com/Mengzuozhu/ShortCommand
+# 主界面
+![主界面](https://images.gitee.com/uploads/images/2019/0523/162246_bcb99d78_1481073.png "主界面.png")
 
 # 主要功能
 用户自定义的快捷命令可以直接：  
@@ -10,6 +12,9 @@ GitHub: https://github.com/Mengzuozhu/ShortCommand
 *  	打开指定网页  
 *  	当轻量搜索引擎使用，若输入的快捷命令不存在，则会使用百度（或谷歌）搜索该命令
 *   输入网址，打开对应网页
+ 
+# 配置界面
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0523/162315_73e8d833_1481073.jpeg "配置界面.jpg")
  
 # 配置说明
 *  	命令/路径/网址：指定cmd命令行、文件路径、文件夹路径或网址。  
@@ -21,7 +26,9 @@ GitHub: https://github.com/Mengzuozhu/ShortCommand
 *  	打开文件或者文件夹——输入：c，按下回车键，即可打开电脑C盘（文件夹路径“C:\”）；  
 *  	打开指定网页——输入：百度，按下回车键，即可打开网页“http://www.baidu.com”  ；或直接在输入框输入网址，可直接打开网页。
 *  	**注：使用默认浏览器打开网页**
- 
+
+ ![输入图片说明](https://images.gitee.com/uploads/images/2019/0523/162425_9c5f31af_1481073.png "示例.png")
+
 # 其他说明
 *  **使用快捷键Ctrl+E，即可显示或隐藏主界面；**   
 *  	主界面的输入框支持自动补全、记录最近执行的5个快捷命令；  
