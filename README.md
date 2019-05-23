@@ -1,5 +1,6 @@
+![image](https://github.com/Mengzuozhu/ReadmeImage/blob/master/ShortCommand/shortcommand.gif)
 # ShortCommand
-基于Windows命令行，用户可使用自定义的快捷命令，直接打开已设置的文件、文件夹和网页，以及当轻量搜索引擎使用
+基于Windows命令行，用户可使用**自定义快捷命令**，直接打开已设置的**文件、文件夹和网页，以及当轻量搜索引擎使用**
 
 # 主界面
 ![image](https://github.com/Mengzuozhu/ReadmeImage/blob/master/ShortCommand/%E4%B8%BB%E7%95%8C%E9%9D%A2.png)
