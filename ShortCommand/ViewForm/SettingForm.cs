@@ -19,9 +19,9 @@ namespace ShortCommand.ViewForm
         private FinderForm finderForm; //查找窗口
 
         /// <summary>
-        /// 更新简称和命令
+        /// 更新配置委托
         /// </summary>
-        public Action<Dictionary<string, string>> UpdateShortNameAndCommandsAction { get; set; }
+        public Action<Dictionary<string, string>> UpdateSettingsAction { get; set; }
 
         public SettingForm(Dictionary<string, string> shortNameAndCommands)
         {
@@ -59,6 +59,7 @@ namespace ShortCommand.ViewForm
             IsAutoStartupMenuItem.CheckOnClick = true;
             IsTopmostMenuItem.Checked = AppSettingValue.IsTopmost;
             IsTopmostMenuItem.CheckOnClick = true;
+            IsAutoHideFormMenuItem.Checked = AppSettingValue.IsAutoHideForm;
             InitSearchEngine();
         }
 
@@ -82,7 +83,6 @@ namespace ShortCommand.ViewForm
             dgvCommandAndNames.Columns[0].Width = width - quarter;
             dgvCommandAndNames.Columns[1].Width = quarter;
         }
-
 
         #endregion
 
@@ -142,13 +142,12 @@ namespace ShortCommand.ViewForm
             {
                 e.Effect = DragDropEffects.None;
             }
-
         }
 
         //拖拽完成
         private void dgvCommandAndNames_DragDrop(object sender, DragEventArgs e)
         {
-            string[] filePaths = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            string[] filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
             shortCommandTable.AddDragFilesToRow(filePaths);
             BeginEditLastRowShortName();
         }
@@ -159,7 +158,8 @@ namespace ShortCommand.ViewForm
         private void BeginEditLastRowShortName()
         {
             int lastRowIndex = dgvCommandAndNames.RowCount - 2;
-            dgvCommandAndNames.CurrentCell = dgvCommandAndNames.Rows[lastRowIndex].Cells[ShortCommandTableClass.ShortName];
+            dgvCommandAndNames.CurrentCell =
+                dgvCommandAndNames.Rows[lastRowIndex].Cells[ShortCommandTableClass.ShortName];
             dgvCommandAndNames.BeginEdit(true);
         }
 
@@ -235,7 +235,8 @@ namespace ShortCommand.ViewForm
             if (sameCellRowIndex != -1)
             {
                 dgvCommandAndNames.Rows[sameCellRowIndex].Selected = true;
-                MessageBoxHelper.ShowWarningMessageBox(string.Format("编辑失败，因为忽略大小写的快捷命令已存在，在第{0}行！", sameCellRowIndex + 1));
+                MessageBoxHelper.ShowWarningMessageBox(string.Format("编辑失败，因为忽略大小写的快捷命令已存在，在第{0}行！",
+                    sameCellRowIndex + 1));
                 //恢复编辑之前的值
                 dgvCommandAndNames.Rows[currentRowIndex].Cells[columnIndex].Value = cellBeginEditValue;
             }
@@ -335,12 +336,14 @@ namespace ShortCommand.ViewForm
             {
                 shortCommandTable.MergeRepeatedAndDistinctTable();
             }
+
             shortCommandTable.UpdateShortNameAndCommands();
             WriteSetting();
-            if (UpdateShortNameAndCommandsAction != null)
+            if (UpdateSettingsAction != null)
             {
-                UpdateShortNameAndCommandsAction(shortCommandTable.ShortNameAndCommands);
+                UpdateSettingsAction(shortCommandTable.ShortNameAndCommands);
             }
+
             Close();
         }
 
@@ -351,6 +354,7 @@ namespace ShortCommand.ViewForm
         {
             AppSettingValue.IsAutoStartup = IsAutoStartupMenuItem.Checked;
             AppSettingValue.IsTopmost = IsTopmostMenuItem.Checked;
+            AppSettingValue.IsAutoHideForm = IsAutoHideFormMenuItem.Checked;
             AppSettingValue.IsGoogleSearch = GoogleSearchMenuItem.Checked;
             AllSettingClass.WriteAllSetting(shortCommandTable.ShortNameAndCommands);
         }
@@ -368,9 +372,8 @@ namespace ShortCommand.ViewForm
             {
                 return;
             }
+
             finderForm.Dispose();
         }
-
-
     }
 }

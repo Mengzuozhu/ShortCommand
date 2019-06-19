@@ -49,6 +49,7 @@
             this.chbShowRepeatedCommand = new System.Windows.Forms.CheckBox();
             this.btnFind = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.IsAutoHideFormMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TablePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCommandAndNames)).BeginInit();
             this.RowContextMenuStrip.SuspendLayout();
@@ -153,6 +154,7 @@
             this.配置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SearchEngineMenuItem,
             this.IsAutoStartupMenuItem,
+            this.IsAutoHideFormMenuItem,
             this.IsTopmostMenuItem});
             this.配置ToolStripMenuItem.Name = "配置ToolStripMenuItem";
             this.配置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
@@ -164,7 +166,7 @@
             this.BaiduSearchMenuItem,
             this.GoogleSearchMenuItem});
             this.SearchEngineMenuItem.Name = "SearchEngineMenuItem";
-            this.SearchEngineMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.SearchEngineMenuItem.Size = new System.Drawing.Size(152, 22);
             this.SearchEngineMenuItem.Text = "搜索引擎";
             // 
             // BaiduSearchMenuItem
@@ -187,14 +189,14 @@
             // 
             this.IsAutoStartupMenuItem.CheckOnClick = true;
             this.IsAutoStartupMenuItem.Name = "IsAutoStartupMenuItem";
-            this.IsAutoStartupMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.IsAutoStartupMenuItem.Size = new System.Drawing.Size(152, 22);
             this.IsAutoStartupMenuItem.Text = "开机启动";
             // 
             // IsTopmostMenuItem
             // 
             this.IsTopmostMenuItem.CheckOnClick = true;
             this.IsTopmostMenuItem.Name = "IsTopmostMenuItem";
-            this.IsTopmostMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.IsTopmostMenuItem.Size = new System.Drawing.Size(152, 22);
             this.IsTopmostMenuItem.Text = "置顶";
             // 
             // btnClearInvalidPath
@@ -239,6 +241,13 @@
             this.label1.Size = new System.Drawing.Size(305, 12);
             this.label1.TabIndex = 12;
             this.label1.Text = "提示：拖动文件（文件夹）到表格中，即可添加对应路径";
+            // 
+            // IsAutoHideFormMenuItem
+            // 
+            this.IsAutoHideFormMenuItem.CheckOnClick = true;
+            this.IsAutoHideFormMenuItem.Name = "IsAutoHideFormMenuItem";
+            this.IsAutoHideFormMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.IsAutoHideFormMenuItem.Text = "自动隐藏";
             // 
             // SettingForm
             // 
@@ -291,5 +300,6 @@
         private System.Windows.Forms.ToolStripMenuItem BaiduSearchMenuItem;
         private System.Windows.Forms.ToolStripMenuItem GoogleSearchMenuItem;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem IsAutoHideFormMenuItem;
     }
 }

@@ -5,6 +5,8 @@
 
     <!--是否开机自启动，默认true -->
     <IsAutoStartup>true</IsAutoStartup>
+    <!--命令输入框失去焦点后，是否自动隐藏主窗口，默认true -->
+    <IsAutoHideForm>true</IsAutoHideForm>
     <!--是否置顶，默认false-->
     <IsTopmost>false</IsTopmost>
     <!--搜索引擎，baidu和google搜索-->

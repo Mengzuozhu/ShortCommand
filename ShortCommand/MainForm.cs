@@ -16,6 +16,7 @@ namespace ShortCommand
         private ShortCommandClass shortCommand; //快捷命令
         private SettingForm settingForm; //配置窗口
         private ToolTipDisplayClass toolTipDisplay;
+        private bool isAutoHideForm;
 
         public MainForm()
         {
@@ -41,6 +42,16 @@ namespace ShortCommand
             AddAutoCompleteSource();
             cboShortName.DrawMode = DrawMode.OwnerDrawFixed;
             toolTipDisplay = new ToolTipDisplayClass(cboShortName, shortCommand);
+            isAutoHideForm = AppSettingValue.IsAutoHideForm;
+            cboShortName.LostFocus += OnLostFocus;
+        }
+
+        private void OnLostFocus(object sender, EventArgs e)
+        {
+            if (isAutoHideForm && !this.ContainsFocus)
+            {
+                HideForm();
+            }
         }
 
         /// <summary>
@@ -142,6 +153,7 @@ namespace ShortCommand
                     {
                         ActivateOrHideForm();
                     }
+
                     break;
                 //创建窗口
                 case WmCreate:
@@ -247,7 +259,7 @@ namespace ShortCommand
             if (settingForm.IsNullOrDisposed())
             {
                 settingForm = new SettingForm(shortCommand.ShortNameAndCommands);
-                settingForm.UpdateShortNameAndCommandsAction += UpdateShortNameAndCommands;
+                settingForm.UpdateSettingsAction += UpdateSettings;
                 settingForm.Show();
             }
             else
@@ -260,9 +272,10 @@ namespace ShortCommand
         /// 更新简称和命令
         /// </summary>
         /// <param name="inShortNameAndCommands"></param>
-        private void UpdateShortNameAndCommands(Dictionary<string, string> inShortNameAndCommands)
+        private void UpdateSettings(Dictionary<string, string> inShortNameAndCommands)
         {
             TopMost = AppSettingValue.IsTopmost;
+            isAutoHideForm = AppSettingValue.IsAutoHideForm;
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
             AddAutoCompleteSource();
         }
@@ -290,10 +303,10 @@ namespace ShortCommand
             {
                 return;
             }
+
             toolTipDisplay.HideToolTip();
         }
 
         #endregion
-
     }
 }
