@@ -45,7 +45,17 @@ namespace ShortCommand.Class.Helper
         /// <returns></returns>
         public static bool PathIsNotExists(string path)
         {
-            return !File.Exists(path) && !Directory.Exists(path);
+            return !PathIsExists(path);
+        }
+
+        /// <summary>
+        /// 目录或文件路径存在
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool PathIsExists(string path)
+        {
+            return File.Exists(path) || Directory.Exists(path);
         }
 
         /// <summary>

@@ -88,14 +88,15 @@ namespace ShortCommand.Class.Command
         private string GetCommand(string originalShortName)
         {
             string command = GetCommandFormSetting(originalShortName);
-            //简称不存在
+            //简称对应的命令不存在
             if (string.IsNullOrEmpty(command))
             {
-                //简称是URL网址，直接打开网页
-                if (IsWellFormedUriString(originalShortName))
+                //简称是URL网址或文件路径，则直接打开
+                if (IsWellFormedUriString(originalShortName) || FileAndDirectoryHelper.PathIsExists(originalShortName))
                 {
-                    return string.Format("start \"\" \"{0}\"", originalShortName);
+                    return ConvertCommandWithQuote(originalShortName);
                 }
+
                 //搜索该简称
                 return GetSearchCommand(originalShortName);
             }
@@ -103,8 +104,7 @@ namespace ShortCommand.Class.Command
             //满足URI格式
             if (IsWellFormedUriString(command))
             {
-                //加上双引号
-                return GetStartCommandWithQuote(command);
+                return ConvertCommandWithQuote(command);
             }
 
             //是目录或文件路径
@@ -117,9 +117,7 @@ namespace ShortCommand.Class.Command
                     return string.Empty;
                 }
 
-                //转义路径的特殊符号（空格等），加上空标题和双引号
-                //START ["title"] [/D path]
-                return GetStartCommandWithQuote(command);
+                return ConvertCommandWithQuote(command);
             }
 
             return string.Format("start \"\" {0}", command);
@@ -135,12 +133,7 @@ namespace ShortCommand.Class.Command
             string upperShortName = originalShortName.ToUpper();
             string command;
             //简称不存在
-            if (upperShortNameAndCommands.TryGetValue(upperShortName, out command))
-            {
-                return command;
-            }
-
-            return string.Empty;
+            return upperShortNameAndCommands.TryGetValue(upperShortName, out command) ? command : string.Empty;
         }
 
         /// <summary>
@@ -154,12 +147,14 @@ namespace ShortCommand.Class.Command
         }
 
         /// <summary>
-        /// 获取带双引号的开始命令
+        /// 转换为带双引号的开始命令
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        private static string GetStartCommandWithQuote(string command)
+        private static string ConvertCommandWithQuote(string command)
         {
+            //转义路径的特殊符号（空格等），加上空标题和双引号
+            //START ["title"] [/D path]
             return string.Format("start \"\" \"{0}\"", command);
         }
 
