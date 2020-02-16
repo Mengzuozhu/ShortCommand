@@ -113,10 +113,12 @@
             this.Controls.Add(this.txbFindText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "FinderForm";
             this.Text = "查找";
-            this.Load += new System.EventHandler(this.LookupForm_Load);
+            this.Load += new System.EventHandler(this.FinderForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FinderForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

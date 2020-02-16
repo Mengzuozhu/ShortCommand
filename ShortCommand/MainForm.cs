@@ -153,7 +153,6 @@ namespace ShortCommand
                     {
                         ActivateOrHideForm();
                     }
-
                     break;
                 //创建窗口
                 case WmCreate:

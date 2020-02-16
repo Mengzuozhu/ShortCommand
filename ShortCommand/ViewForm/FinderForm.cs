@@ -18,7 +18,7 @@ namespace ShortCommand.ViewForm
             finder = new FinderClass(dgvCommandAndNames, lblMessage);
         }
 
-        private void LookupForm_Load(object sender, EventArgs e)
+        private void FinderForm_Load(object sender, EventArgs e)
         {
             InitForm();
         }
@@ -55,12 +55,18 @@ namespace ShortCommand.ViewForm
             finder.ResetFindState();
         }
 
-        //回车键，查找下一个
         private void txbFindText_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter) return;
-
-            FindNext();
+            switch (e.KeyCode)
+            {
+                //回车键，查找下一个
+                case Keys.Enter:
+                    FindNext();
+                    break;
+                case Keys.Escape:
+                    Close();
+                    break;
+            }
         }
 
         //查找下一个
@@ -79,5 +85,12 @@ namespace ShortCommand.ViewForm
             finder.FindNext(txbFindText.Text, isAllWordMatch, isIgnoreCase);
         }
 
+        private void FinderForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 }

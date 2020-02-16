@@ -282,6 +282,10 @@ namespace ShortCommand.ViewForm
             {
                 ShowFinderForm();
             }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         /// <summary>
