@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ShortCommand.Class.Helper;
+using ShortCommand.Class.Setting;
 
 namespace ShortCommand.ViewForm
 {
@@ -10,14 +11,20 @@ namespace ShortCommand.ViewForm
     /// </summary>
     public partial class SettingPanelForm : Form
     {
-        private readonly Dictionary<string, string> shortNameAndCommands;
+        private Dictionary<string, string> shortNameAndCommands;
+
         private Dictionary<string, PanelForm> configForms;
+
+        /// <summary>
+        /// 更新配置委托
+        /// </summary>
+        public Action<Dictionary<string, string>> UpdateSettingsAction { get; set; }
 
         #region 窗口
 
         private Form currentForm;
         private PanelForm commonSettingForm;
-        private PanelForm settingForm;
+        private SettingForm settingForm;
         private PanelForm searchEngineForm;
 
         #endregion
@@ -32,6 +39,7 @@ namespace ShortCommand.ViewForm
         private void SettingPanelForm_Load(object sender, EventArgs e)
         {
             InitForm();
+            this.KeyPreview = true;
         }
 
         #region 初始化
@@ -41,6 +49,7 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void InitForm()
         {
+            btnCancel.TabIndex = 0;
             InitConfigForms();
             foreach (PanelForm configForm in configForms.Values)
             {
@@ -121,7 +130,19 @@ namespace ShortCommand.ViewForm
             {
                 configForm?.UpdateFormConfig();
             }
+
+            shortNameAndCommands = settingForm.GetShortNameAndCommands();
+            UpdateSettingsAction?.Invoke(shortNameAndCommands);
+            AllSettingClass.WriteAllAppConfigs();
             Close();
+        }
+
+        private void SettingPanelForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

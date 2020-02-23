@@ -36,7 +36,11 @@ namespace ShortCommand.ViewForm
         /// <inheritdoc />
         public override void UpdateFormConfig()
         {
-            AppSettingValue.IsAutoStartup = IsAutoStartupMenuItem.Checked;
+            if (AppSettingValue.IsAutoStartup != IsAutoStartupMenuItem.Checked)
+            {
+                AppSettingValue.IsAutoStartup = IsAutoStartupMenuItem.Checked;
+            }
+
             AppSettingValue.IsTopmost = IsTopmostMenuItem.Checked;
             AppSettingValue.IsAutoHideForm = IsAutoHideFormMenuItem.Checked;
         }

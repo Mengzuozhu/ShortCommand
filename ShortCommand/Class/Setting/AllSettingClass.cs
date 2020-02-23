@@ -54,17 +54,14 @@ namespace ShortCommand.Class.Setting
         /// 写入所有配置
         /// </summary>
         /// <param name="shortNameAndCommands"></param>
-        public static void WriteAllSetting(Dictionary<string, string> shortNameAndCommands)
+        public static void WriteAllCommandConfigs(Dictionary<string, string> shortNameAndCommands)
         {
-            if (commandConfigFile != null)
-            {
-                commandConfigFile.WriteAllCommandConfigs(shortNameAndCommands);
-            }
+            commandConfigFile?.WriteAllCommandConfigs(shortNameAndCommands);
+        }
 
-            if (appConfigFile != null)
-            {
-                appConfigFile.WriteAllAppConfigs(appSettings);
-            }
+        public static void WriteAllAppConfigs()
+        {
+            appConfigFile?.WriteAllAppConfigs(appSettings);
         }
 
         /// <summary>

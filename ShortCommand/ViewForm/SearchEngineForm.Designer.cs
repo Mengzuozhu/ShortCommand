@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbtnGoogle = new System.Windows.Forms.RadioButton();
-            this.rbtnBaidu = new System.Windows.Forms.RadioButton();
-            this.rbtnCustom = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.rbtnCustom = new System.Windows.Forms.RadioButton();
+            this.rbtnBaidu = new System.Windows.Forms.RadioButton();
+            this.rbtnGoogle = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,34 +43,21 @@
             this.groupBox1.Controls.Add(this.rbtnBaidu);
             this.groupBox1.Controls.Add(this.rbtnGoogle);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Location = new System.Drawing.Point(10, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(500, 144);
+            this.groupBox1.Size = new System.Drawing.Size(480, 124);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "搜索引擎";
             // 
-            // rbtnGoogle
+            // textBox1
             // 
-            this.rbtnGoogle.AutoSize = true;
-            this.rbtnGoogle.Location = new System.Drawing.Point(12, 20);
-            this.rbtnGoogle.Name = "rbtnGoogle";
-            this.rbtnGoogle.Size = new System.Drawing.Size(71, 16);
-            this.rbtnGoogle.TabIndex = 0;
-            this.rbtnGoogle.TabStop = true;
-            this.rbtnGoogle.Text = "谷歌搜索";
-            this.rbtnGoogle.UseVisualStyleBackColor = true;
-            // 
-            // rbtnBaidu
-            // 
-            this.rbtnBaidu.AutoSize = true;
-            this.rbtnBaidu.Location = new System.Drawing.Point(12, 42);
-            this.rbtnBaidu.Name = "rbtnBaidu";
-            this.rbtnBaidu.Size = new System.Drawing.Size(71, 16);
-            this.rbtnBaidu.TabIndex = 0;
-            this.rbtnBaidu.TabStop = true;
-            this.rbtnBaidu.Text = "百度搜索";
-            this.rbtnBaidu.UseVisualStyleBackColor = true;
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(12, 86);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(456, 21);
+            this.textBox1.TabIndex = 1;
             // 
             // rbtnCustom
             // 
@@ -83,14 +70,27 @@
             this.rbtnCustom.Text = "自定义搜索";
             this.rbtnCustom.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // rbtnBaidu
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 86);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(476, 21);
-            this.textBox1.TabIndex = 1;
+            this.rbtnBaidu.AutoSize = true;
+            this.rbtnBaidu.Location = new System.Drawing.Point(12, 42);
+            this.rbtnBaidu.Name = "rbtnBaidu";
+            this.rbtnBaidu.Size = new System.Drawing.Size(71, 16);
+            this.rbtnBaidu.TabIndex = 0;
+            this.rbtnBaidu.TabStop = true;
+            this.rbtnBaidu.Text = "百度搜索";
+            this.rbtnBaidu.UseVisualStyleBackColor = true;
+            // 
+            // rbtnGoogle
+            // 
+            this.rbtnGoogle.AutoSize = true;
+            this.rbtnGoogle.Location = new System.Drawing.Point(12, 20);
+            this.rbtnGoogle.Name = "rbtnGoogle";
+            this.rbtnGoogle.Size = new System.Drawing.Size(71, 16);
+            this.rbtnGoogle.TabIndex = 0;
+            this.rbtnGoogle.TabStop = true;
+            this.rbtnGoogle.Text = "谷歌搜索";
+            this.rbtnGoogle.UseVisualStyleBackColor = true;
             // 
             // SearchEngineForm
             // 
@@ -100,6 +100,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SearchEngineForm";
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "SearchEngineForm";
             this.Load += new System.EventHandler(this.SearchEngineForm_Load);
             this.groupBox1.ResumeLayout(false);

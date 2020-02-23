@@ -258,6 +258,7 @@ namespace ShortCommand
             if (settingForm.IsNullOrDisposed())
             {
                 SettingPanelForm settingPanelForm = new SettingPanelForm(shortCommand.ShortNameAndCommands);
+                settingPanelForm.UpdateSettingsAction += UpdateSettings;
                 settingPanelForm.Show();
 //                settingForm = new SettingForm(shortCommand.ShortNameAndCommands);
 //                settingForm.UpdateSettingsAction += UpdateSettings;

@@ -18,11 +18,6 @@ namespace ShortCommand.ViewForm
         private readonly ShortCommandTableClass shortCommandTable; //简命令表格
         private FinderForm finderForm; //查找窗口
 
-        /// <summary>
-        /// 更新配置委托
-        /// </summary>
-        public Action<Dictionary<string, string>> UpdateSettingsAction { get; set; }
-
         public SettingForm(Dictionary<string, string> shortNameAndCommands)
         {
             InitializeComponent();
@@ -43,24 +38,9 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void InitForm()
         {
-            btnCancel.TabIndex = 0;
-            MinimumSize = new Size(600, 500); //设置窗口最小尺寸
-            InitSetting();
+//            MinimumSize = new Size(600, 500); //设置窗口最小尺寸
             InitDataGridView();
             ChangeColumnWidth();
-        }
-
-        /// <summary>
-        /// 初始化配置
-        /// </summary>
-        private void InitSetting()
-        {
-            IsAutoStartupMenuItem.Checked = AppSettingValue.IsAutoStartup;
-            IsAutoStartupMenuItem.CheckOnClick = true;
-            IsTopmostMenuItem.Checked = AppSettingValue.IsTopmost;
-            IsTopmostMenuItem.CheckOnClick = true;
-            IsAutoHideFormMenuItem.Checked = AppSettingValue.IsAutoHideForm;
-            InitSearchEngine();
         }
 
         /// <summary>
@@ -77,18 +57,18 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void ChangeColumnWidth()
         {
-            int width = TablePanel.Width - dgvCommandAndNames.RowHeadersWidth - 3;
+            int width = grbCommand.Width - dgvCommandAndNames.RowHeadersWidth - 10;
             int quarter = width / 4;
 
-//            dgvCommandAndNames.Columns[0].Width = width - quarter;
-//            dgvCommandAndNames.Columns[1].Width = quarter;
+            dgvCommandAndNames.Columns[0].Width = width - quarter;
+            dgvCommandAndNames.Columns[1].Width = quarter;
         }
 
         #endregion
 
         #region 容器大小变化
 
-        private void TablePanel_SizeChanged(object sender, EventArgs e)
+        private void grbCommand_Resize(object sender, EventArgs e)
         {
             ChangeColumnWidth();
         }
@@ -244,29 +224,6 @@ namespace ShortCommand.ViewForm
 
         #endregion
 
-        #region 搜索引擎
-
-        /// <summary>
-        /// 初始化搜索引擎
-        /// </summary>
-        private void InitSearchEngine()
-        {
-            GoogleSearchMenuItem.Checked = AppSettingValue.IsGoogleSearch;
-            BaiduSearchMenuItem.Checked = !GoogleSearchMenuItem.Checked;
-        }
-
-        private void BaiduSearchMenuItem_Click(object sender, EventArgs e)
-        {
-            GoogleSearchMenuItem.Checked = !BaiduSearchMenuItem.Checked;
-        }
-
-        private void GoogleSearchMenuItem_Click(object sender, EventArgs e)
-        {
-            BaiduSearchMenuItem.Checked = !GoogleSearchMenuItem.Checked;
-        }
-
-        #endregion
-
         #region 查找
 
         //查找
@@ -275,16 +232,13 @@ namespace ShortCommand.ViewForm
             ShowFinderForm();
         }
 
-        //查找快捷键Ctrl+F
+
         private void SettingForm_KeyDown(object sender, KeyEventArgs e)
         {
+            //查找快捷键Ctrl+F
             if (e.Control && e.KeyCode == Keys.F)
             {
                 ShowFinderForm();
-            }
-            else if (e.KeyCode == Keys.Escape)
-            {
-                this.Close();
             }
         }
 
@@ -332,8 +286,10 @@ namespace ShortCommand.ViewForm
             shortCommandTable.ClearInvalidPath();
         }
 
-        //应用
-        private void btnApply_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 写入配置
+        /// </summary>
+        public override void UpdateFormConfig()
         {
             //若当前显示的是重复项表格，则合并后再写入配置
             if (chbShowRepeatedCommand.Checked)
@@ -342,31 +298,12 @@ namespace ShortCommand.ViewForm
             }
 
             shortCommandTable.UpdateShortNameAndCommands();
-            WriteSetting();
-            if (UpdateSettingsAction != null)
-            {
-                UpdateSettingsAction(shortCommandTable.ShortNameAndCommands);
-            }
-
-            Close();
+            AllSettingClass.WriteAllCommandConfigs(GetShortNameAndCommands());
         }
 
-        /// <summary>
-        /// 写入配置
-        /// </summary>
-        private void WriteSetting()
+        public Dictionary<string, string> GetShortNameAndCommands()
         {
-            AppSettingValue.IsAutoStartup = IsAutoStartupMenuItem.Checked;
-            AppSettingValue.IsTopmost = IsTopmostMenuItem.Checked;
-            AppSettingValue.IsAutoHideForm = IsAutoHideFormMenuItem.Checked;
-            AppSettingValue.IsGoogleSearch = GoogleSearchMenuItem.Checked;
-            AllSettingClass.WriteAllSetting(shortCommandTable.ShortNameAndCommands);
-        }
-
-        //取消
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            Close();
+            return shortCommandTable.ShortNameAndCommands;
         }
 
         //关闭
