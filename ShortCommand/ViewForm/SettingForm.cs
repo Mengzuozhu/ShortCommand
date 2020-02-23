@@ -11,7 +11,7 @@ namespace ShortCommand.ViewForm
     /// <summary>
     /// 配置窗口
     /// </summary>
-    public partial class SettingForm : Form
+    public partial class SettingForm : PanelForm
     {
         private int selectRowIndex = -1; //选择行的索引
         private object cellBeginEditValue; //单元格开始编辑的值
@@ -80,8 +80,8 @@ namespace ShortCommand.ViewForm
             int width = TablePanel.Width - dgvCommandAndNames.RowHeadersWidth - 3;
             int quarter = width / 4;
 
-            dgvCommandAndNames.Columns[0].Width = width - quarter;
-            dgvCommandAndNames.Columns[1].Width = quarter;
+//            dgvCommandAndNames.Columns[0].Width = width - quarter;
+//            dgvCommandAndNames.Columns[1].Width = quarter;
         }
 
         #endregion

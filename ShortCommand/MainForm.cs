@@ -257,9 +257,11 @@ namespace ShortCommand
         {
             if (settingForm.IsNullOrDisposed())
             {
-                settingForm = new SettingForm(shortCommand.ShortNameAndCommands);
-                settingForm.UpdateSettingsAction += UpdateSettings;
-                settingForm.Show();
+                SettingPanelForm settingPanelForm = new SettingPanelForm(shortCommand.ShortNameAndCommands);
+                settingPanelForm.Show();
+//                settingForm = new SettingForm(shortCommand.ShortNameAndCommands);
+//                settingForm.UpdateSettingsAction += UpdateSettings;
+//                settingForm.Show();
             }
             else
             {
