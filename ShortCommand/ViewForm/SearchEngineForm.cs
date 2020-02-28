@@ -12,7 +12,6 @@ namespace ShortCommand.ViewForm
 
         private void SearchEngineForm_Load(object sender, EventArgs e)
         {
-            ReadFormConfig();
         }
 
         public override void ReadFormConfig()
@@ -25,6 +24,5 @@ namespace ShortCommand.ViewForm
         {
             AppSettingValue.IsGoogleSearch = rbtnGoogle.Checked;
         }
-
     }
 }

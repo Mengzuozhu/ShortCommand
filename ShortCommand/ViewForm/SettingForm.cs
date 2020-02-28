@@ -13,7 +13,7 @@ namespace ShortCommand.ViewForm
     /// </summary>
     public partial class SettingForm : PanelForm
     {
-        private int selectRowIndex = -1; //选择行的索引
+        private int selectRowIndex = -1; //选中行的索引
         private object cellBeginEditValue; //单元格开始编辑的值
         private readonly ShortCommandTableClass shortCommandTable; //简命令表格
         private FinderForm finderForm; //查找窗口
@@ -38,7 +38,6 @@ namespace ShortCommand.ViewForm
         /// </summary>
         private void InitForm()
         {
-//            MinimumSize = new Size(600, 500); //设置窗口最小尺寸
             InitDataGridView();
             ChangeColumnWidth();
         }
@@ -245,18 +244,14 @@ namespace ShortCommand.ViewForm
         /// <summary>
         /// 显示查找窗口
         /// </summary>
-        private void ShowFinderForm()
+        public void ShowFinderForm()
         {
             if (finderForm.IsNullOrDisposed())
             {
                 finderForm = new FinderForm(dgvCommandAndNames)
                 {
-                    StartPosition = FormStartPosition.Manual
+                    StartPosition = FormStartPosition.CenterScreen
                 };
-                //居中显示在配置窗口中
-                var x = Location.X + (Width - finderForm.Width) / 2;
-                var y = Location.Y + (Height - finderForm.Height) / 2;
-                finderForm.Location = new Point(x, y);
                 finderForm.Show();
             }
             else
@@ -309,12 +304,10 @@ namespace ShortCommand.ViewForm
         //关闭
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (finderForm.IsNullOrDisposed())
+            if (!finderForm.IsNullOrDisposed())
             {
-                return;
+                finderForm.Dispose();
             }
-
-            finderForm.Dispose();
         }
     }
 }

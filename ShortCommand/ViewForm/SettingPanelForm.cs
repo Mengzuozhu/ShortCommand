@@ -55,6 +55,7 @@ namespace ShortCommand.ViewForm
             {
                 configForm.Dock = DockStyle.Top;
                 configForm.Parent = parentPanel;
+                configForm.ReadFormConfig();
             }
 
             trvFormList.ExpandAll();
@@ -71,9 +72,9 @@ namespace ShortCommand.ViewForm
             searchEngineForm = new SearchEngineForm();
             configForms = new Dictionary<string, PanelForm>
             {
-                {"命令配置", settingForm},
-                {"通用", commonSettingForm},
-                {"搜索引擎", searchEngineForm}
+                {settingForm.Text, settingForm},
+                {commonSettingForm.Text, commonSettingForm},
+                {searchEngineForm.Text, searchEngineForm}
             };
         }
 
@@ -97,6 +98,11 @@ namespace ShortCommand.ViewForm
         /// <param name="form"></param>
         private void ShowCurrentForm(Form form)
         {
+            if (form == currentForm)
+            {
+                return;
+            }
+
             //隐藏上一次的窗口
             if (!currentForm.IsNullOrDisposed())
             {
@@ -105,6 +111,7 @@ namespace ShortCommand.ViewForm
 
             currentForm = form;
             currentForm.Show();
+            currentForm.Size = parentPanel.Size;
         }
 
         #endregion
@@ -121,6 +128,11 @@ namespace ShortCommand.ViewForm
 
         private void SettingForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            foreach (var configFormsValue in configForms.Values)
+            {
+                configFormsValue?.Close();
+            }
+
             Dispose();
         }
 
@@ -143,6 +155,15 @@ namespace ShortCommand.ViewForm
             {
                 this.Close();
             }
+            else if (e.Control && e.KeyCode == Keys.F && settingForm == currentForm)
+            {
+                settingForm.ShowFinderForm();
+            }
+        }
+
+        private void SettingPanelForm_Resize(object sender, EventArgs e)
+        {
+            settingForm.Size = parentPanel.Size;
         }
     }
 }

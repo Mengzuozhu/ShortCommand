@@ -123,6 +123,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.SettingForm_FormClosed);
             this.Load += new System.EventHandler(this.SettingPanelForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SettingPanelForm_KeyDown);
+            this.Resize += new System.EventHandler(this.SettingPanelForm_Resize);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

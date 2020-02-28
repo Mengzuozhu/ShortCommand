@@ -44,11 +44,13 @@ namespace ShortCommand.Class.Setting
                 //当前用户的注册表
                 RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(registryRunPath);
                 if (registryKey == null) return;
-                if (isAutoStartup)
+                object preValue = registryKey.GetValue(programName);
+                //与之前的配置不一样，才会应用
+                if (isAutoStartup && preValue == null)
                 {
                     registryKey.SetValue(programName, executablePath); //开启自启动
                 }
-                else
+                else if (executablePath.Equals(preValue))
                 {
                     registryKey.DeleteValue(programName, false); //关闭自启动
                 }

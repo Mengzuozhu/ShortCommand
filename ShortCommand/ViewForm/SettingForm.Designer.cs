@@ -48,13 +48,15 @@
             // dgvCommandAndNames
             // 
             this.dgvCommandAndNames.AllowDrop = true;
+            this.dgvCommandAndNames.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCommandAndNames.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvCommandAndNames.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCommandAndNames.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvCommandAndNames.Location = new System.Drawing.Point(3, 17);
             this.dgvCommandAndNames.Name = "dgvCommandAndNames";
             this.dgvCommandAndNames.RowTemplate.Height = 23;
-            this.dgvCommandAndNames.Size = new System.Drawing.Size(598, 385);
+            this.dgvCommandAndNames.Size = new System.Drawing.Size(598, 380);
             this.dgvCommandAndNames.TabIndex = 4;
             this.dgvCommandAndNames.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvCommandAndNames_CellBeginEdit);
             this.dgvCommandAndNames.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCommandAndNames_CellEndEdit);
@@ -97,7 +99,7 @@
             // btnClearInvalidPath
             // 
             this.btnClearInvalidPath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnClearInvalidPath.Location = new System.Drawing.Point(502, 409);
+            this.btnClearInvalidPath.Location = new System.Drawing.Point(502, 411);
             this.btnClearInvalidPath.Name = "btnClearInvalidPath";
             this.btnClearInvalidPath.Size = new System.Drawing.Size(96, 23);
             this.btnClearInvalidPath.TabIndex = 7;
@@ -109,7 +111,7 @@
             // 
             this.chbShowRepeatedCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chbShowRepeatedCommand.AutoSize = true;
-            this.chbShowRepeatedCommand.Location = new System.Drawing.Point(8, 413);
+            this.chbShowRepeatedCommand.Location = new System.Drawing.Point(6, 415);
             this.chbShowRepeatedCommand.Name = "chbShowRepeatedCommand";
             this.chbShowRepeatedCommand.Size = new System.Drawing.Size(156, 16);
             this.chbShowRepeatedCommand.TabIndex = 8;
@@ -120,7 +122,7 @@
             // btnFind
             // 
             this.btnFind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFind.Location = new System.Drawing.Point(421, 409);
+            this.btnFind.Location = new System.Drawing.Point(421, 411);
             this.btnFind.Name = "btnFind";
             this.btnFind.Size = new System.Drawing.Size(75, 23);
             this.btnFind.TabIndex = 11;
@@ -132,7 +134,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 388);
+            this.label1.Location = new System.Drawing.Point(4, 400);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(305, 12);
             this.label1.TabIndex = 12;
@@ -148,7 +150,7 @@
             this.grbCommand.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grbCommand.Location = new System.Drawing.Point(10, 10);
             this.grbCommand.Name = "grbCommand";
-            this.grbCommand.Size = new System.Drawing.Size(604, 444);
+            this.grbCommand.Size = new System.Drawing.Size(604, 446);
             this.grbCommand.TabIndex = 13;
             this.grbCommand.TabStop = false;
             this.grbCommand.Text = "命令配置";
@@ -158,13 +160,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 464);
+            this.ClientSize = new System.Drawing.Size(624, 458);
             this.Controls.Add(this.grbCommand);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingForm";
-            this.Padding = new System.Windows.Forms.Padding(10);
-            this.Text = "快捷命令配置";
+            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 2);
+            this.Text = "命令配置";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingForm_FormClosing);
             this.Load += new System.EventHandler(this.SettingForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SettingForm_KeyDown);

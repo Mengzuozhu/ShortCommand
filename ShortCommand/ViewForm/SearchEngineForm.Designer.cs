@@ -101,7 +101,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SearchEngineForm";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Text = "SearchEngineForm";
+            this.Text = "搜索引擎";
             this.Load += new System.EventHandler(this.SearchEngineForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

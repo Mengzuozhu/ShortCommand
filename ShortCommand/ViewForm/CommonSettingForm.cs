@@ -19,7 +19,6 @@ namespace ShortCommand.ViewForm
 
         private void CommonSettingForm_Load(object sender, EventArgs e)
         {
-            ReadFormConfig();
         }
 
         /// <inheritdoc />

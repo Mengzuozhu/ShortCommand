@@ -89,7 +89,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CommonSettingForm";
             this.Padding = new System.Windows.Forms.Padding(10);
-            this.Text = "CommonSettingForm";
+            this.Text = "通用";
             this.Load += new System.EventHandler(this.CommonSettingForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

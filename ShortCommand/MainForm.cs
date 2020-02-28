@@ -14,9 +14,9 @@ namespace ShortCommand
     {
         private const int MaxShortNameItemsCount = 5; //下拉框历史命令上限
         private ShortCommandClass shortCommand; //快捷命令
-        private SettingForm settingForm; //配置窗口
         private ToolTipDisplayClass toolTipDisplay;
         private bool isAutoHideForm;
+        private SettingPanelForm settingPanelForm;
 
         public MainForm()
         {
@@ -255,18 +255,15 @@ namespace ShortCommand
         //配置窗口
         private void btnSettingForm_Click(object sender, EventArgs e)
         {
-            if (settingForm.IsNullOrDisposed())
+            if (settingPanelForm.IsNullOrDisposed())
             {
-                SettingPanelForm settingPanelForm = new SettingPanelForm(shortCommand.ShortNameAndCommands);
+                settingPanelForm = new SettingPanelForm(shortCommand.ShortNameAndCommands);
                 settingPanelForm.UpdateSettingsAction += UpdateSettings;
                 settingPanelForm.Show();
-//                settingForm = new SettingForm(shortCommand.ShortNameAndCommands);
-//                settingForm.UpdateSettingsAction += UpdateSettings;
-//                settingForm.Show();
             }
             else
             {
-                settingForm.Activate();
+                settingPanelForm.Activate();
             }
         }
 
