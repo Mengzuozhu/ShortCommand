@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txbSearchEngineUrl = new System.Windows.Forms.TextBox();
             this.rbtnCustom = new System.Windows.Forms.RadioButton();
             this.rbtnBaidu = new System.Windows.Forms.RadioButton();
             this.rbtnGoogle = new System.Windows.Forms.RadioButton();
@@ -38,7 +38,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.txbSearchEngineUrl);
             this.groupBox1.Controls.Add(this.rbtnCustom);
             this.groupBox1.Controls.Add(this.rbtnBaidu);
             this.groupBox1.Controls.Add(this.rbtnGoogle);
@@ -50,25 +50,26 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "搜索引擎";
             // 
-            // textBox1
+            // txbSearchEngineUrl
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txbSearchEngineUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 86);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(456, 21);
-            this.textBox1.TabIndex = 1;
+            this.txbSearchEngineUrl.Location = new System.Drawing.Point(12, 86);
+            this.txbSearchEngineUrl.Name = "txbSearchEngineUrl";
+            this.txbSearchEngineUrl.Size = new System.Drawing.Size(456, 21);
+            this.txbSearchEngineUrl.TabIndex = 1;
             // 
             // rbtnCustom
             // 
             this.rbtnCustom.AutoSize = true;
             this.rbtnCustom.Location = new System.Drawing.Point(12, 64);
             this.rbtnCustom.Name = "rbtnCustom";
-            this.rbtnCustom.Size = new System.Drawing.Size(83, 16);
+            this.rbtnCustom.Size = new System.Drawing.Size(353, 16);
             this.rbtnCustom.TabIndex = 0;
             this.rbtnCustom.TabStop = true;
-            this.rbtnCustom.Text = "自定义搜索";
+            this.rbtnCustom.Text = "自定义搜索(例：https://www.google.com/search?q=${word})";
             this.rbtnCustom.UseVisualStyleBackColor = true;
+            this.rbtnCustom.CheckedChanged += new System.EventHandler(this.rbtnCustom_CheckedChanged);
             // 
             // rbtnBaidu
             // 
@@ -115,6 +116,6 @@
         private System.Windows.Forms.RadioButton rbtnCustom;
         private System.Windows.Forms.RadioButton rbtnBaidu;
         private System.Windows.Forms.RadioButton rbtnGoogle;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txbSearchEngineUrl;
     }
 }

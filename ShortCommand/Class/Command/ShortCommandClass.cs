@@ -18,6 +18,7 @@ namespace ShortCommand.Class.Command
         public Dictionary<string, string> ShortNameAndCommands { get; set; }
 
         private Dictionary<string, string> upperShortNameAndCommands; //大写的简称和命令，用于忽略大小写
+        private const string Word = "${word}";
 
         public ShortCommandClass()
         {
@@ -168,7 +169,12 @@ namespace ShortCommand.Class.Command
             //对要搜索的字符串进行转义编码，因为URL中某些特殊字符不能直接使用
             string escapeShortName = Uri.EscapeDataString(shortName);
             var searchEngineUrl = AppSettingValue.SearchEngineUrl;
-            return string.Format("start \"\" \"{0}{1}\"", searchEngineUrl, escapeShortName);
+            if (searchEngineUrl.IsNullOrEmpty()|| !searchEngineUrl.Contains(Word))
+            {
+                searchEngineUrl = AppSettingValue.GoogleSearchEngine;
+            }
+            string searchUrl = searchEngineUrl.Replace(Word, escapeShortName);
+            return string.Format("start \"\" \"{0}\"", searchUrl);
         }
 
     }

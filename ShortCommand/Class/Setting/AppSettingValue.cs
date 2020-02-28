@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -14,11 +15,8 @@ namespace ShortCommand.Class.Setting
         private const string IsAutoStartupName = "IsAutoStartup";
         private const string IsTopmostName = "IsTopmost";
         private const string IsAutoHideFormName = "IsAutoHideForm";
-        private const string SearchEngine = "SearchEngine";
-        private const string Google = "google";
-        private const string Baidu = "baidu";
-        private const string BaiduSearchEngineUrl = "https://www.baidu.com/s?wd=";
-        private const string GoogleSearchEngineUrl = "https://www.google.com/search?q=";
+        private const string SearchUrl = "SearchUrl";
+        public const string GoogleSearchEngine = "https://www.google.com/search?q=${word}";
 
         /// <summary>
         /// 是否开机自启动
@@ -79,19 +77,6 @@ namespace ShortCommand.Class.Setting
         }
 
         /// <summary>
-        /// 是否是谷歌搜索
-        /// </summary>
-        public static bool IsGoogleSearch
-        {
-            get
-            {
-                string searchEngine = AllSettingClass.GetSettingStringValueFor(SearchEngine).ToLower();
-                return Google.Equals(searchEngine);
-            }
-            set { AllSettingClass.ChangeSettingValueFor(SearchEngine, value ? Google : Baidu); }
-        }
-
-        /// <summary>
         /// 命令输入框失去焦点后，是否自动隐藏主窗口
         /// </summary>
         public static bool IsAutoHideForm
@@ -105,7 +90,8 @@ namespace ShortCommand.Class.Setting
         /// </summary>
         public static string SearchEngineUrl
         {
-            get { return IsGoogleSearch ? GoogleSearchEngineUrl : BaiduSearchEngineUrl; }
+            get { return AllSettingClass.GetSettingStringValueFor(SearchUrl); }
+            set { AllSettingClass.ChangeSettingValueFor(SearchUrl, value); }
         }
     }
 }

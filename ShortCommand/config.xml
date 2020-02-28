@@ -10,7 +10,7 @@
     <!--是否置顶，默认false-->
     <IsTopmost>false</IsTopmost>
     <!--搜索引擎，baidu和google搜索-->
-    <SearchEngine>baidu</SearchEngine>
+    <SearchUrl>https://www.google.com/search?q=${word}</SearchUrl>
 
   </AppSettings>
 
