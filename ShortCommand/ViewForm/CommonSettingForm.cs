@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ShortCommand.Class.Setting;
 
 namespace ShortCommand.ViewForm
@@ -19,6 +12,8 @@ namespace ShortCommand.ViewForm
 
         private void CommonSettingForm_Load(object sender, EventArgs e)
         {
+            ReadFormConfig();
+            IsLoaded = true;
         }
 
         /// <inheritdoc />
@@ -28,19 +23,21 @@ namespace ShortCommand.ViewForm
         public override void ReadFormConfig()
         {
             IsAutoStartupMenuItem.Checked = AppSettingValue.IsAutoStartup;
-            IsTopmostMenuItem.Checked = AppSettingValue.IsTopmost;
             IsAutoHideFormMenuItem.Checked = AppSettingValue.IsAutoHideForm;
         }
 
         /// <inheritdoc />
         public override void UpdateFormConfig()
         {
+            if (!IsLoaded)
+            {
+                return;
+            }
             if (AppSettingValue.IsAutoStartup != IsAutoStartupMenuItem.Checked)
             {
                 AppSettingValue.IsAutoStartup = IsAutoStartupMenuItem.Checked;
             }
 
-            AppSettingValue.IsTopmost = IsTopmostMenuItem.Checked;
             AppSettingValue.IsAutoHideForm = IsAutoHideFormMenuItem.Checked;
         }
     }

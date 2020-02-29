@@ -139,9 +139,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

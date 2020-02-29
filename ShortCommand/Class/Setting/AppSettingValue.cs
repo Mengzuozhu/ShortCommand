@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
@@ -13,9 +12,9 @@ namespace ShortCommand.Class.Setting
     class AppSettingValue
     {
         private const string IsAutoStartupName = "IsAutoStartup";
-        private const string IsTopmostName = "IsTopmost";
         private const string IsAutoHideFormName = "IsAutoHideForm";
-        private const string SearchUrl = "SearchUrl";
+        private const string SearchUrlName = "SearchUrl";
+        private const string ExplorerPathName = "ExplorerPath";
         public const string GoogleSearchEngine = "https://www.google.com/search?q=${word}";
 
         /// <summary>
@@ -68,15 +67,6 @@ namespace ShortCommand.Class.Setting
         }
 
         /// <summary>
-        /// 程序是否置顶
-        /// </summary>
-        public static bool IsTopmost
-        {
-            get { return AllSettingClass.GetSettingBooleanValueFor(IsTopmostName); }
-            set { AllSettingClass.ChangeSettingValueFor(IsTopmostName, value.BoolToString()); }
-        }
-
-        /// <summary>
         /// 命令输入框失去焦点后，是否自动隐藏主窗口
         /// </summary>
         public static bool IsAutoHideForm
@@ -90,8 +80,14 @@ namespace ShortCommand.Class.Setting
         /// </summary>
         public static string SearchEngineUrl
         {
-            get { return AllSettingClass.GetSettingStringValueFor(SearchUrl); }
-            set { AllSettingClass.ChangeSettingValueFor(SearchUrl, value); }
+            get => AllSettingClass.GetSettingStringValueFor(SearchUrlName);
+            set => AllSettingClass.ChangeSettingValueFor(SearchUrlName, value);
+        }
+
+        public static string ExplorerPath
+        {
+            get => AllSettingClass.GetSettingStringValueFor(ExplorerPathName);
+            set => AllSettingClass.ChangeSettingValueFor(ExplorerPathName, value);
         }
     }
 }

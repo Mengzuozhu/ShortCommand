@@ -7,6 +7,8 @@ namespace ShortCommand.ViewForm
     /// </summary>
     public class PanelForm : Form
     {
+        protected bool IsLoaded;
+
         public PanelForm()
         {
             TopLevel = false;

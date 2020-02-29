@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using ShortCommand.Class.Helper;
 using ShortCommand.Class.Setting;
 
 namespace ShortCommand.ViewForm
@@ -9,6 +10,7 @@ namespace ShortCommand.ViewForm
     {
         private readonly Dictionary<string, RadioButton> searchEngineUrlMap;
         private string searchEngineUrl;
+        private string lastCustomUrl;
 
         public SearchEngineForm()
         {
@@ -16,12 +18,15 @@ namespace ShortCommand.ViewForm
             searchEngineUrlMap = new Dictionary<string, RadioButton>()
             {
                 {AppSettingValue.GoogleSearchEngine, rbtnGoogle},
-                {"https://www.baidu.com/s?wd=${word}", rbtnBaidu}
+                {"https://www.baidu.com/s?wd=${word}", rbtnBaidu},
+                {"https://cn.bing.com/search?q=${word}", rbtnBing}
             };
         }
 
         private void SearchEngineForm_Load(object sender, EventArgs e)
         {
+            ReadFormConfig();
+            IsLoaded = true;
         }
 
         public override void ReadFormConfig()
@@ -38,10 +43,15 @@ namespace ShortCommand.ViewForm
             }
 
             txbSearchEngineUrl.Enabled = rbtnCustom.Checked;
+            txbExplorerPath.Text = AppSettingValue.ExplorerPath;
         }
 
         public override void UpdateFormConfig()
         {
+            if (!IsLoaded)
+            {
+                return;
+            }
             if (rbtnCustom.Checked)
             {
                 searchEngineUrl = txbSearchEngineUrl.Text;
@@ -59,16 +69,31 @@ namespace ShortCommand.ViewForm
             }
 
             AppSettingValue.SearchEngineUrl = searchEngineUrl;
+            AppSettingValue.ExplorerPath = txbExplorerPath.Text;
         }
 
         private void rbtnCustom_CheckedChanged(object sender, EventArgs e)
         {
-            if (!rbtnCustom.Checked)
+            if (rbtnCustom.Checked)
             {
+                txbSearchEngineUrl.Text = lastCustomUrl;
+            }
+            else
+            {
+                lastCustomUrl = txbSearchEngineUrl.Text;
                 txbSearchEngineUrl.Text = string.Empty;
             }
 
             txbSearchEngineUrl.Enabled = rbtnCustom.Checked;
+        }
+
+        private void btnExplorerPath_Click(object sender, EventArgs e)
+        {
+            string filePath = FileAndDirectoryHelper.OpenExeFileDialog();
+            if (!filePath.IsNullOrEmpty())
+            {
+                txbExplorerPath.Text = filePath;
+            }
         }
     }
 }

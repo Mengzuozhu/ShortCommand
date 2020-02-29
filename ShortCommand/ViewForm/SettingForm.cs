@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using ShortCommand.Class.Command;
 using ShortCommand.Class.Helper;
@@ -29,6 +28,7 @@ namespace ShortCommand.ViewForm
         private void SettingForm_Load(object sender, EventArgs e)
         {
             InitForm();
+            IsLoaded = true;
         }
 
         #region 初始化
@@ -286,6 +286,10 @@ namespace ShortCommand.ViewForm
         /// </summary>
         public override void UpdateFormConfig()
         {
+            if (!IsLoaded)
+            {
+                return;
+            }
             //若当前显示的是重复项表格，则合并后再写入配置
             if (chbShowRepeatedCommand.Checked)
             {

@@ -55,7 +55,6 @@ namespace ShortCommand.ViewForm
             {
                 configForm.Dock = DockStyle.Top;
                 configForm.Parent = parentPanel;
-                configForm.ReadFormConfig();
             }
 
             trvFormList.ExpandAll();

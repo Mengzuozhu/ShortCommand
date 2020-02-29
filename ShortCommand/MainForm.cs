@@ -195,7 +195,6 @@ namespace ShortCommand
         /// </summary>
         private void ShowFormAndFocusInputBox()
         {
-            TopMost = AppSettingValue.IsTopmost;
             WindowState = FormWindowState.Normal;
             this.Visible = true;
             this.Activate();
@@ -273,7 +272,6 @@ namespace ShortCommand
         /// <param name="inShortNameAndCommands"></param>
         private void UpdateSettings(Dictionary<string, string> inShortNameAndCommands)
         {
-            TopMost = AppSettingValue.IsTopmost;
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
             AddAutoCompleteSource();
