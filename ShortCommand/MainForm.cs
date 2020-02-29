@@ -14,9 +14,9 @@ namespace ShortCommand
     {
         private const int MaxShortNameItemsCount = 5; //下拉框历史命令上限
         private ShortCommandClass shortCommand; //快捷命令
-        private SettingForm settingForm; //配置窗口
         private ToolTipDisplayClass toolTipDisplay;
         private bool isAutoHideForm;
+        private SettingPanelForm settingPanelForm;
 
         public MainForm()
         {
@@ -195,7 +195,6 @@ namespace ShortCommand
         /// </summary>
         private void ShowFormAndFocusInputBox()
         {
-            TopMost = AppSettingValue.IsTopmost;
             WindowState = FormWindowState.Normal;
             this.Visible = true;
             this.Activate();
@@ -255,15 +254,15 @@ namespace ShortCommand
         //配置窗口
         private void btnSettingForm_Click(object sender, EventArgs e)
         {
-            if (settingForm.IsNullOrDisposed())
+            if (settingPanelForm.IsNullOrDisposed())
             {
-                settingForm = new SettingForm(shortCommand.ShortNameAndCommands);
-                settingForm.UpdateSettingsAction += UpdateSettings;
-                settingForm.Show();
+                settingPanelForm = new SettingPanelForm(shortCommand.ShortNameAndCommands);
+                settingPanelForm.UpdateSettingsAction += UpdateSettings;
+                settingPanelForm.Show();
             }
             else
             {
-                settingForm.Activate();
+                settingPanelForm.Activate();
             }
         }
 
@@ -273,7 +272,6 @@ namespace ShortCommand
         /// <param name="inShortNameAndCommands"></param>
         private void UpdateSettings(Dictionary<string, string> inShortNameAndCommands)
         {
-            TopMost = AppSettingValue.IsTopmost;
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
             AddAutoCompleteSource();

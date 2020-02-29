@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows.Forms;
 
 namespace ShortCommand.Class.Helper
 {
@@ -70,5 +71,27 @@ namespace ShortCommand.Class.Helper
             return isDirectoryOrFilePath && PathIsNotExists(path);
         }
 
+        /// <summary>
+        /// 获取打开文件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFileDialogPath(string filter)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = filter,
+                Multiselect = false //不允许多个文件同时选择
+            };
+            return openFileDialog.ShowDialog() == DialogResult.OK ? openFileDialog.FileName : string.Empty;
+        }
+
+        /// <summary>
+        /// 打开.exe文件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string OpenExeFileDialog()
+        {
+            return GetFileDialogPath(@"(*.exe)|*.exe");
+        }
     }
 }

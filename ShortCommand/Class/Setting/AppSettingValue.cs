@@ -12,13 +12,10 @@ namespace ShortCommand.Class.Setting
     class AppSettingValue
     {
         private const string IsAutoStartupName = "IsAutoStartup";
-        private const string IsTopmostName = "IsTopmost";
         private const string IsAutoHideFormName = "IsAutoHideForm";
-        private const string SearchEngine = "SearchEngine";
-        private const string Google = "google";
-        private const string Baidu = "baidu";
-        private const string BaiduSearchEngineUrl = "https://www.baidu.com/s?wd=";
-        private const string GoogleSearchEngineUrl = "https://www.google.com/search?q=";
+        private const string SearchUrlName = "SearchUrl";
+        private const string ExplorerPathName = "ExplorerPath";
+        public const string GoogleSearchEngine = "https://www.google.com/search?q=${word}";
 
         /// <summary>
         /// 是否开机自启动
@@ -44,11 +41,13 @@ namespace ShortCommand.Class.Setting
                 //当前用户的注册表
                 RegistryKey registryKey = Registry.CurrentUser.CreateSubKey(registryRunPath);
                 if (registryKey == null) return;
-                if (isAutoStartup)
+                object preValue = registryKey.GetValue(programName);
+                //与之前的配置不一样，才会应用
+                if (isAutoStartup && preValue == null)
                 {
                     registryKey.SetValue(programName, executablePath); //开启自启动
                 }
-                else
+                else if (executablePath.Equals(preValue))
                 {
                     registryKey.DeleteValue(programName, false); //关闭自启动
                 }
@@ -68,28 +67,6 @@ namespace ShortCommand.Class.Setting
         }
 
         /// <summary>
-        /// 程序是否置顶
-        /// </summary>
-        public static bool IsTopmost
-        {
-            get { return AllSettingClass.GetSettingBooleanValueFor(IsTopmostName); }
-            set { AllSettingClass.ChangeSettingValueFor(IsTopmostName, value.BoolToString()); }
-        }
-
-        /// <summary>
-        /// 是否是谷歌搜索
-        /// </summary>
-        public static bool IsGoogleSearch
-        {
-            get
-            {
-                string searchEngine = AllSettingClass.GetSettingStringValueFor(SearchEngine).ToLower();
-                return Google.Equals(searchEngine);
-            }
-            set { AllSettingClass.ChangeSettingValueFor(SearchEngine, value ? Google : Baidu); }
-        }
-
-        /// <summary>
         /// 命令输入框失去焦点后，是否自动隐藏主窗口
         /// </summary>
         public static bool IsAutoHideForm
@@ -103,7 +80,14 @@ namespace ShortCommand.Class.Setting
         /// </summary>
         public static string SearchEngineUrl
         {
-            get { return IsGoogleSearch ? GoogleSearchEngineUrl : BaiduSearchEngineUrl; }
+            get => AllSettingClass.GetSettingStringValueFor(SearchUrlName);
+            set => AllSettingClass.ChangeSettingValueFor(SearchUrlName, value);
+        }
+
+        public static string ExplorerPath
+        {
+            get => AllSettingClass.GetSettingStringValueFor(ExplorerPathName);
+            set => AllSettingClass.ChangeSettingValueFor(ExplorerPathName, value);
         }
     }
 }

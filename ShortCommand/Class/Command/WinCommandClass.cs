@@ -9,7 +9,7 @@ namespace ShortCommand.Class.Command
     /// </summary>
     public class WinCommandClass
     {
-        private static StringBuilder errorInfo;
+        private static string errorInfo;
 
         /// <summary>
         /// 在cmd中执行指定命令行，执行完后关闭cmd
@@ -39,7 +39,7 @@ namespace ShortCommand.Class.Command
                 process.Dispose();
             }
 
-            return errorInfo == null ? null : errorInfo.ToString();
+            return errorInfo;
         }
 
         /// <summary>
@@ -49,13 +49,10 @@ namespace ShortCommand.Class.Command
         /// <param name="e"></param>
         private static void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (e.Data == null) return;
-
-            if (errorInfo == null)
+            if (e.Data != null)
             {
-                errorInfo = new StringBuilder();
+                errorInfo = e.Data;
             }
-            errorInfo.Append(e.Data);
         }
 
         /// <summary>

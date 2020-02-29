@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ShortCommand.Class.Helper;
@@ -18,6 +19,7 @@ namespace ShortCommand.Class.Command
         public Dictionary<string, string> ShortNameAndCommands { get; set; }
 
         private Dictionary<string, string> upperShortNameAndCommands; //大写的简称和命令，用于忽略大小写
+        private const string Word = "${word}";
 
         public ShortCommandClass()
         {
@@ -48,6 +50,7 @@ namespace ShortCommand.Class.Command
                 {
                     continue;
                 }
+
                 upperShortNameAndCommands.Add(upperShortName, shortNameAndExePath.Value);
             }
         }
@@ -61,11 +64,13 @@ namespace ShortCommand.Class.Command
             {
                 return;
             }
+
             var command = GetCommand(originalShortName);
             if (command.IsNullOrEmpty())
             {
                 return;
             }
+
             Task.Factory.StartNew(() =>
             {
                 string errorInfo = WinCommandClass.RunCommandLineInCmdAndExitCmd(command);
@@ -88,39 +93,27 @@ namespace ShortCommand.Class.Command
         private string GetCommand(string originalShortName)
         {
             string command = GetCommandFormSetting(originalShortName);
-            //简称对应的命令不存在
+            //对应的命令不存在
             if (string.IsNullOrEmpty(command))
             {
-                //简称是URL网址或文件路径，则直接打开
+                //输入是URL网址或文件路径，则直接打开
                 if (IsWellFormedUriString(originalShortName) || FileAndDirectoryHelper.PathIsExists(originalShortName))
                 {
                     return ConvertCommandWithQuote(originalShortName);
                 }
 
-                //搜索该简称
                 return GetSearchCommand(originalShortName);
             }
 
-            //满足URI格式
-            if (IsWellFormedUriString(command))
-            {
-                return ConvertCommandWithQuote(command);
-            }
-
             //是目录或文件路径
-            if (FileAndDirectoryHelper.IsDirectoryOrFilePath(command))
+            if (FileAndDirectoryHelper.IsDirectoryOrFilePath(command) &&
+                FileAndDirectoryHelper.PathIsNotExists(command))
             {
-                //路径不存在
-                if (FileAndDirectoryHelper.PathIsNotExists(command))
-                {
-                    MessageBoxHelper.ShowErrorMessageBox(string.Format(@"对应路径不存在：{0}", command));
-                    return string.Empty;
-                }
-
-                return ConvertCommandWithQuote(command);
+                MessageBoxHelper.ShowErrorMessageBox($@"对应路径不存在：{command}");
+                return string.Empty;
             }
 
-            return string.Format("start \"\" {0}", command);
+            return ConvertCommandWithQuote(command);
         }
 
         /// <summary>
@@ -131,9 +124,7 @@ namespace ShortCommand.Class.Command
         public string GetCommandFormSetting(string originalShortName)
         {
             string upperShortName = originalShortName.ToUpper();
-            string command;
-            //简称不存在
-            return upperShortNameAndCommands.TryGetValue(upperShortName, out command) ? command : string.Empty;
+            return upperShortNameAndCommands.TryGetValue(upperShortName, out var command) ? command : string.Empty;
         }
 
         /// <summary>
@@ -153,9 +144,15 @@ namespace ShortCommand.Class.Command
         /// <returns></returns>
         private static string ConvertCommandWithQuote(string command)
         {
+            string explorerPath = AppSettingValue.ExplorerPath;
+            if (File.Exists(explorerPath) && IsWellFormedUriString(command))
+            {
+                return $"\"{explorerPath}\" \"{command}\"";
+            }
+
             //转义路径的特殊符号（空格等），加上空标题和双引号
             //START ["title"] [/D path]
-            return string.Format("start \"\" \"{0}\"", command);
+            return $"start \"\" \"{command}\"";
         }
 
         /// <summary>
@@ -168,8 +165,13 @@ namespace ShortCommand.Class.Command
             //对要搜索的字符串进行转义编码，因为URL中某些特殊字符不能直接使用
             string escapeShortName = Uri.EscapeDataString(shortName);
             var searchEngineUrl = AppSettingValue.SearchEngineUrl;
-            return string.Format("start \"\" \"{0}{1}\"", searchEngineUrl, escapeShortName);
-        }
+            if (searchEngineUrl.IsNullOrEmpty() || !searchEngineUrl.Contains(Word))
+            {
+                searchEngineUrl = AppSettingValue.GoogleSearchEngine;
+            }
 
+            string searchUrl = searchEngineUrl.Replace(Word, escapeShortName);
+            return ConvertCommandWithQuote(searchUrl);
+        }
     }
 }
