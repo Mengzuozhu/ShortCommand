@@ -29,14 +29,17 @@
 
 3.使用示例
 --------
+调用程序的快捷键：<kbd>Ctrl</kbd> + <kbd>E</kbd>
 
 ### 调用Windows系统应用 
-1. 输入：`ca`
-2. 按下<kbd>Enter</kbd>，即可打开系统计算器
+1. 按下<kbd>Ctrl</kbd> + <kbd>E</kbd>
+2. 输入：`ca`
+3. 按下<kbd>Enter</kbd>，即可打开系统计算器
 
 ### 打开指定网页
-1. 输入：`g`
-2. 按下<kbd>Enter</kbd>，即可打开网页`https://www.google.com/`
+1. 按下<kbd>Ctrl</kbd> + <kbd>E</kbd>
+2. 输入：`g`
+3. 按下<kbd>Enter</kbd>，即可打开网页`https://www.google.com/`
 
 4.详细使用
 --------
