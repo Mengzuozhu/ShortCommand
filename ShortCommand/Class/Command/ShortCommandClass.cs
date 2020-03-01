@@ -100,13 +100,19 @@ namespace ShortCommand.Class.Command
             }
 
             //是目录或文件路径
-            if (FileAndDirectoryHelper.IsDirectoryOrFilePath(command) &&
-                FileAndDirectoryHelper.PathIsNotExists(command))
+            bool isDirectoryOrFilePath = FileAndDirectoryHelper.IsDirectoryOrFilePath(command);
+            if (isDirectoryOrFilePath && FileAndDirectoryHelper.PathIsNotExists(command))
             {
                 MessageBoxHelper.ShowErrorMessageBox($@"对应路径不存在：{command}");
                 return string.Empty;
             }
-            return IsWellFormedUriString(command) ? ConvertCommandWithQuote(command) : SimpleCommand(command);
+
+            if (isDirectoryOrFilePath || IsWellFormedUriString(command))
+            {
+                return ConvertCommandWithQuote(command);
+            }
+
+            return SimpleCommand(command);
         }
 
         private static string SimpleCommand(string command)
