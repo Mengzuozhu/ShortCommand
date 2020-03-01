@@ -15,6 +15,8 @@
 
 2.安装使用
 --------
+> #### 运行环境：至少Windows XP系统，且`.NET`≥4.0  
+
 [最新发布包](https://github.com/Mengzuozhu/ShortCommand/releases)
 1.  下载免安装包（.zip），解压即可使用
 2.  或下载安装包（Setup.exe），安装后，方可使用
