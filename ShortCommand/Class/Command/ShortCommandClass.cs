@@ -96,13 +96,7 @@ namespace ShortCommand.Class.Command
             //对应的命令不存在
             if (string.IsNullOrEmpty(command))
             {
-                //输入是URL网址或文件路径，则直接打开
-                if (IsWellFormedUriString(originalShortName) || FileAndDirectoryHelper.PathIsExists(originalShortName))
-                {
-                    return ConvertCommandWithQuote(originalShortName);
-                }
-
-                return GetSearchCommand(originalShortName);
+                return CommandNotInConfig(originalShortName);
             }
 
             //是目录或文件路径
@@ -112,8 +106,23 @@ namespace ShortCommand.Class.Command
                 MessageBoxHelper.ShowErrorMessageBox($@"对应路径不存在：{command}");
                 return string.Empty;
             }
+            return IsWellFormedUriString(command) ? ConvertCommandWithQuote(command) : SimpleCommand(command);
+        }
 
-            return ConvertCommandWithQuote(command);
+        private static string SimpleCommand(string command)
+        {
+            return $"start \"\" {command}";
+        }
+
+        private static string CommandNotInConfig(string originalShortName)
+        {
+            //输入是URL网址或文件路径，则直接打开
+            if (IsWellFormedUriString(originalShortName) || FileAndDirectoryHelper.PathIsExists(originalShortName))
+            {
+                return ConvertCommandWithQuote(originalShortName);
+            }
+
+            return GetSearchCommand(originalShortName);
         }
 
         /// <summary>
