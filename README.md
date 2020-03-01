@@ -29,7 +29,7 @@
 
 3.使用示例
 --------
-调用程序的快捷键：<kbd>Ctrl</kbd> + <kbd>E</kbd>
+调用`快捷命令`的快捷键：<kbd>Ctrl</kbd> + <kbd>E</kbd>
 
 ### 调用Windows系统应用 
 1. 按下<kbd>Ctrl</kbd> + <kbd>E</kbd>
