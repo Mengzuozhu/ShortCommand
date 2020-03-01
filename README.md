@@ -15,7 +15,9 @@
 
 2.安装使用
 --------
-> #### 运行环境：至少Windows XP系统，且`.NET`≥4.0  
+> ##### 运行环境：
+>*   至少Windows XP系统
+>*   且`.NET`≥4.0   
 
 [最新发布包](https://github.com/Mengzuozhu/ShortCommand/releases)
 1.  下载免安装包（.zip），解压即可使用
@@ -41,4 +43,4 @@
 *  	[使用说明](https://github.com/Mengzuozhu/ShortCommand/wiki/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)  
 
 2. 常用系统命令可参考：
-*  	[参考文档](https://github.com/Mengzuozhu/ShortCommand/wiki/%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3)  
+*  	[命令参考文档](https://github.com/Mengzuozhu/ShortCommand/wiki/%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3)  
