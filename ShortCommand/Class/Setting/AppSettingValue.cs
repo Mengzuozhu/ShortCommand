@@ -2,7 +2,6 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using ShortCommand.Class.Helper;
 
 namespace ShortCommand.Class.Setting
 {

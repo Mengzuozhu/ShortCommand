@@ -27,7 +27,7 @@ namespace ShortCommand.Class.Setting
             //文件不存在，或节点为空，则返回空字典
             if (FileAndDirectoryHelper.FileIsNotExists(filePath)) return configKeyAndValue;
 
-            var xmlDoc = XmlFileClass.LoadXmlFile(filePath);
+            var xmlDoc = XmlFileLoader.LoadXmlFile(filePath);
             XmlNodeList appSettingsNodes = xmlDoc.GetElementsByTagName(AppSettings);
             if (appSettingsNodes.Count < 1)
             {
@@ -55,7 +55,7 @@ namespace ShortCommand.Class.Setting
                 MessageBoxHelper.ShowErrorMessageBox($"配置文件不存在：{filePath}");
                 return;
             }
-            var xmlDoc = XmlFileClass.LoadXmlFile(filePath);
+            var xmlDoc = XmlFileLoader.LoadXmlFile(filePath);
             XmlNodeList appSettingsNodes = xmlDoc.GetElementsByTagName(AppSettings);
             if (appSettingsNodes.Count < 1)
             {

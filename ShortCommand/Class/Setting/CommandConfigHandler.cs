@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Forms;
 using System.Xml;
 using ShortCommand.Class.Helper;
 
@@ -38,7 +37,7 @@ namespace ShortCommand.Class.Setting
                 return configKeyAndValue;
             }
 
-            var xmlDoc = XmlFileClass.LoadXmlFile(path);
+            var xmlDoc = XmlFileLoader.LoadXmlFile(path);
             XmlNodeList xmlNodeList = xmlDoc.GetElementsByTagName(CommandInfo);
             for (int i = 0; i < xmlNodeList.Count; i++)
             {
@@ -77,7 +76,7 @@ namespace ShortCommand.Class.Setting
                 return;
             }
 
-            UpdateCommandInfos(configKeyAndValue, XmlFileClass.LoadXmlFile(filePath));
+            UpdateCommandInfos(configKeyAndValue, XmlFileLoader.LoadXmlFile(filePath));
         }
 
         /// <summary>
