@@ -1,4 +1,7 @@
 ## ShortCommand（快捷命令）
+![](https://img.shields.io/badge/platform-windows-lightgrey.svg)
+![](https://img.shields.io/badge/language-csharp-purple.svg)
+[![](https://img.shields.io/badge/releases-v1.0.1.0-brightgreen.svg)](https://github.com/Mengzuozhu/ShortCommand/releases)
 
 > #### 使用**自定义命令**，快速打开文件、文件夹、应用和网页，以及唤起网络搜索引擎
 ![](https://github.com/Mengzuozhu/ReadmeImage/blob/master/ShortCommand/all.gif)
@@ -26,14 +29,17 @@
 
 3.使用示例
 --------
+调用`快捷命令`的快捷键：<kbd>Ctrl</kbd> + <kbd>E</kbd>
 
 ### 调用Windows系统应用 
-1. 输入：`ca`
-2. 按下<kbd>Enter</kbd>，即可打开系统计算器
+1. 按下<kbd>Ctrl</kbd> + <kbd>E</kbd>
+2. 输入：`ca`
+3. 按下<kbd>Enter</kbd>，即可打开系统计算器
 
 ### 打开指定网页
-1. 输入：`g`
-2. 按下<kbd>Enter</kbd>，即可打开网页`https://www.google.com/`
+1. 按下<kbd>Ctrl</kbd> + <kbd>E</kbd>
+2. 输入：`g`
+3. 按下<kbd>Enter</kbd>，即可打开网页`https://www.google.com/`
 
 4.详细使用
 --------
