@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace ShortCommand.Class.Setting
@@ -9,8 +10,8 @@ namespace ShortCommand.Class.Setting
     class AllSettingClass
     {
         private static Dictionary<string, string> appSettings; //程序配置项和值
-        private static CommandConfigClass commandConfigFile; //命令配置
-        private static AppConfigClass appConfigFile; //程序自身的配置
+        private static CommandConfigHandler commandConfigHandler; //命令配置
+        private static AppConfigHandler appConfigHandler; //程序配置
 
         static AllSettingClass()
         {
@@ -24,8 +25,8 @@ namespace ShortCommand.Class.Setting
         public static Dictionary<string, string> ReadCommandSettings()
         {
             var filePath = GetConfigFilePath();
-            commandConfigFile = new CommandConfigClass(filePath);
-            Dictionary<string, string> commandSettings = commandConfigFile.ReadAllCommandConfigs();
+            commandConfigHandler = new CommandConfigHandler(filePath);
+            Dictionary<string, string> commandSettings = commandConfigHandler.ReadAllCommandConfigs();
             return commandSettings;
         }
 
@@ -36,8 +37,8 @@ namespace ShortCommand.Class.Setting
         private static void GetAppSettings()
         {
             var filePath = GetConfigFilePath();
-            appConfigFile = new AppConfigClass(filePath);
-            appSettings = appConfigFile.ReadAllAppConfigs();
+            appConfigHandler = new AppConfigHandler(filePath);
+            appSettings = appConfigHandler.ReadAllAppConfigs();
         }
 
         /// <summary>
@@ -56,12 +57,12 @@ namespace ShortCommand.Class.Setting
         /// <param name="shortNameAndCommands"></param>
         public static void WriteAllCommandConfigs(Dictionary<string, string> shortNameAndCommands)
         {
-            commandConfigFile?.WriteAllCommandConfigs(shortNameAndCommands);
+            commandConfigHandler?.WriteAllCommandConfigs(shortNameAndCommands);
         }
 
         public static void WriteAllAppConfigs()
         {
-            appConfigFile?.WriteAllAppConfigs(appSettings);
+            appConfigHandler?.WriteAllAppConfigs(appSettings);
         }
 
         /// <summary>
@@ -71,8 +72,7 @@ namespace ShortCommand.Class.Setting
         /// <returns></returns>
         public static bool GetSettingBooleanValueFor(string key)
         {
-            string settingStringValue = GetSettingStringValueFor(key);
-            return "true".Equals(settingStringValue);
+            return bool.TrueString.Equals(GetSettingStringValueFor(key), StringComparison.OrdinalIgnoreCase);
         }
 
         /// <summary>
@@ -82,13 +82,7 @@ namespace ShortCommand.Class.Setting
         /// <returns></returns>
         public static string GetSettingStringValueFor(string key)
         {
-            //不包含对应配置项
-            if (!appSettings.ContainsKey(key))
-            {
-                return string.Empty;
-            }
-            string xmlValue = appSettings[key];
-            return xmlValue;
+            return appSettings.ContainsKey(key) ? appSettings[key] : string.Empty;
         }
 
         /// <summary>
@@ -100,6 +94,5 @@ namespace ShortCommand.Class.Setting
         {
             appSettings[key] = value;
         }
-
     }
 }

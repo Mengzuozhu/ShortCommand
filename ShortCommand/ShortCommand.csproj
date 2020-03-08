@@ -56,9 +56,9 @@
     <Compile Include="Class\Helper\MessageBoxHelper.cs" />
     <Compile Include="Class\Helper\StringExtension.cs" />
     <Compile Include="Class\Setting\AllSettingClass.cs" />
-    <Compile Include="Class\Setting\AppConfigClass.cs" />
+    <Compile Include="Class\Setting\AppConfigHandler.cs" />
     <Compile Include="Class\Setting\AppSettingValue.cs" />
-    <Compile Include="Class\Setting\CommandConfigClass.cs" />
+    <Compile Include="Class\Setting\CommandConfigHandler.cs" />
     <Compile Include="Class\Setting\XmlFileClass.cs" />
     <Compile Include="Class\HotKey\SystemHotKey.cs" />
     <Compile Include="ViewForm\PanelForm.cs">

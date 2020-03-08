@@ -150,7 +150,7 @@ namespace ShortCommand.Class.Command
             //若配置中存在同名快捷命令，则修改新增的文件名
             while (GetSameShortNameIgnoreCaseIndex(newFileName, -1) != -1)
             {
-                newFileName = string.Format("{0}({1})", fileName, i++);
+                newFileName = $"{fileName}({i++})";
             }
 
             //取拖拽文件的文件名作为默认快捷命令
@@ -174,7 +174,7 @@ namespace ShortCommand.Class.Command
                 }
             }
 
-            MessageBoxHelper.ShowInfoMessageBox(string.Format("共清除{0}个无效路径。", invalidCount));
+            MessageBoxHelper.ShowInfoMessageBox($"共清除{invalidCount}个无效路径。");
         }
 
         /// <summary>

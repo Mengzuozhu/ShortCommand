@@ -22,8 +22,8 @@ namespace ShortCommand.Class.Setting
         /// </summary>
         public static bool IsAutoStartup
         {
-            get { return AllSettingClass.GetSettingBooleanValueFor(IsAutoStartupName); }
-            set { ChangeAutoStartUp(value); }
+            get => AllSettingClass.GetSettingBooleanValueFor(IsAutoStartupName);
+            set => ChangeAutoStartUp(value);
         }
 
         /// <summary>  
@@ -62,7 +62,7 @@ namespace ShortCommand.Class.Setting
 
             if (isSuccessful)
             {
-                AllSettingClass.ChangeSettingValueFor(IsAutoStartupName, isAutoStartup.BoolToString());
+                AllSettingClass.ChangeSettingValueFor(IsAutoStartupName, isAutoStartup.ToString().ToLower());
             }
         }
 
@@ -71,8 +71,8 @@ namespace ShortCommand.Class.Setting
         /// </summary>
         public static bool IsAutoHideForm
         {
-            get { return AllSettingClass.GetSettingBooleanValueFor(IsAutoHideFormName); }
-            set { AllSettingClass.ChangeSettingValueFor(IsAutoHideFormName, value.BoolToString()); }
+            get => AllSettingClass.GetSettingBooleanValueFor(IsAutoHideFormName);
+            set => AllSettingClass.ChangeSettingValueFor(IsAutoHideFormName, value.ToString().ToLower());
         }
 
         /// <summary>

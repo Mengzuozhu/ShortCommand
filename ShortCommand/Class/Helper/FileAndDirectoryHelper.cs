@@ -93,5 +93,14 @@ namespace ShortCommand.Class.Helper
         {
             return GetFileDialogPath(@"(*.exe)|*.exe");
         }
+
+        /// <summary>
+        /// 打开.xml文件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string OpenXmlFileDialog()
+        {
+            return GetFileDialogPath(@"(*.xml)|*.xml");
+        }
     }
 }
