@@ -13,7 +13,7 @@ namespace ShortCommand.Class.Helper
         /// <param name="message"></param>
         public static void ShowErrorMessageBox(string message)
         {
-            MessageBox.Show(message, @"错误", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            ShowMessageBox(message, @"错误", MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -22,17 +22,21 @@ namespace ShortCommand.Class.Helper
         /// <param name="message"></param>
         public static void ShowInfoMessageBox(string message)
         {
-            MessageBox.Show(message, @"消息", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            ShowMessageBox(message, @"消息", MessageBoxIcon.Information);
         }
-        
+
         /// <summary>
         /// 显示提示消息框
         /// </summary>
         /// <param name="message"></param>
         public static void ShowWarningMessageBox(string message)
         {
-            MessageBox.Show(message, @"提示", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+            ShowMessageBox(message, @"消提示息", MessageBoxIcon.Warning);
         }
 
+        private static void ShowMessageBox(string message, string caption, MessageBoxIcon messageBoxIcon)
+        {
+            MessageBox.Show(message, caption, MessageBoxButtons.OK, messageBoxIcon, MessageBoxDefaultButton.Button1);
+        }
     }
 }

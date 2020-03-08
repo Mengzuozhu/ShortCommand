@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\Command\ShortCommandClass.cs" />
-    <Compile Include="Class\Command\ShortCommandTableClass.cs" />
+    <Compile Include="Class\Command\ShortCommandTableHandler.cs" />
     <Compile Include="Class\Command\WinCommandClass.cs" />
     <Compile Include="Class\Display\ToolTipDisplayClass.cs" />
     <Compile Include="Class\Finder\FinderClass.cs" />
@@ -56,11 +56,18 @@
     <Compile Include="Class\Helper\MessageBoxHelper.cs" />
     <Compile Include="Class\Helper\StringExtension.cs" />
     <Compile Include="Class\Setting\AllSettingClass.cs" />
-    <Compile Include="Class\Setting\AppConfigClass.cs" />
+    <Compile Include="Class\Setting\AppConfigHandler.cs" />
     <Compile Include="Class\Setting\AppSettingValue.cs" />
-    <Compile Include="Class\Setting\CommandConfigClass.cs" />
-    <Compile Include="Class\Setting\XmlFileClass.cs" />
+    <Compile Include="Class\Setting\CommandConfigHandler.cs" />
+    <Compile Include="Class\Setting\ConfigImporter.cs" />
+    <Compile Include="Class\Setting\XmlFileLoader.cs" />
     <Compile Include="Class\HotKey\SystemHotKey.cs" />
+    <Compile Include="ViewForm\CommandCompareForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewForm\CommandCompareForm.Designer.cs">
+      <DependentUpon>CommandCompareForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ViewForm\PanelForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +109,9 @@
     <Compile Include="ViewForm\SettingForm.Designer.cs">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ViewForm\CommandCompareForm.resx">
+      <DependentUpon>CommandCompareForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ViewForm\SettingPanelForm.resx">
       <DependentUpon>SettingPanelForm.cs</DependentUpon>
     </EmbeddedResource>

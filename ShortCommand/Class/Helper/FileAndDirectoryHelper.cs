@@ -75,12 +75,12 @@ namespace ShortCommand.Class.Helper
         /// 获取打开文件路径
         /// </summary>
         /// <returns></returns>
-        public static string GetFileDialogPath(string filter)
+        public static string OpenFileDialog(string filter)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = filter,
-                Multiselect = false //不允许多个文件同时选择
+                Multiselect = false 
             };
             return openFileDialog.ShowDialog() == DialogResult.OK ? openFileDialog.FileName : string.Empty;
         }
@@ -91,7 +91,16 @@ namespace ShortCommand.Class.Helper
         /// <returns></returns>
         public static string OpenExeFileDialog()
         {
-            return GetFileDialogPath(@"(*.exe)|*.exe");
+            return OpenFileDialog(@"(*.exe)|*.exe");
+        }
+
+        /// <summary>
+        /// 打开.xml文件路径
+        /// </summary>
+        /// <returns></returns>
+        public static string OpenXmlFileDialog()
+        {
+            return OpenFileDialog(@"(*.xml)|*.xml");
         }
     }
 }
