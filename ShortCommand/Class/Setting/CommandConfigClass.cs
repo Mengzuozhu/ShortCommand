@@ -39,12 +39,17 @@ namespace ShortCommand.Class.Setting
             XmlNodeList xmlNodeList = xmlDoc.GetElementsByTagName(CommandInfo);
             for (int i = 0; i < xmlNodeList.Count; i++)
             {
-                XmlNode currentNode = xmlNodeList[i];
-                if (currentNode.Attributes == null) continue;
-                XmlAttribute currentKey = currentNode.Attributes[ShortName];
-                XmlAttribute currentValue = currentNode.Attributes[Command];
-                if (currentKey == null || currentValue == null) continue;
-                configKeyAndValue[currentKey.InnerText] = currentValue.InnerText;
+                XmlAttributeCollection attributes = xmlNodeList[i].Attributes;
+                if (attributes == null)
+                {
+                    continue;
+                }
+                XmlAttribute currentKey = attributes[ShortName];
+                XmlAttribute currentValue = attributes[Command];
+                if (currentKey != null && currentValue != null)
+                {
+                    configKeyAndValue[currentKey.InnerText] = currentValue.InnerText;
+                }
             }
             return configKeyAndValue;
         }
@@ -58,7 +63,7 @@ namespace ShortCommand.Class.Setting
             //文件不存在，则返回
             if (FileAndDirectoryHelper.FileIsNotExists(filePath))
             {
-                MessageBox.Show(string.Format("配置文件不存在：{0}", filePath), @"错误");
+                MessageBox.Show($@"配置文件不存在：{filePath}", @"错误");
                 return;
             }
             var xmlDoc = XmlFileClass.LoadXmlFile(filePath);
@@ -111,7 +116,7 @@ namespace ShortCommand.Class.Setting
             XmlNodeList commandSettingNodes = xmlDoc.GetElementsByTagName(CommandSettings);
             if (commandSettingNodes.Count < 1)
             {
-                MessageBox.Show(string.Format("配置文件格式错误，{0}节点不存在", CommandSettings), @"错误");
+                MessageBox.Show($@"配置文件格式错误，{CommandSettings}节点不存在", @"错误");
                 return false;
             }
             XmlNode commandSettingNode = commandSettingNodes[0];

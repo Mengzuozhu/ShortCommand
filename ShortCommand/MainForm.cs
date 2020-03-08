@@ -21,7 +21,7 @@ namespace ShortCommand
         public MainForm()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace ShortCommand
 
         private void OnLostFocus(object sender, EventArgs e)
         {
-            if (isAutoHideForm && !this.ContainsFocus)
+            if (isAutoHideForm && !ContainsFocus)
             {
                 HideForm();
             }
@@ -91,7 +91,7 @@ namespace ShortCommand
         /// </summary>
         private void BeginInvokeInsertShortName()
         {
-            this.BeginInvoke(new Action(InsertShortNameToFirstItemOfCombobox));
+            BeginInvoke(new Action(InsertShortNameToFirstItemOfCombobox));
         }
 
         /// <summary>
@@ -185,9 +185,9 @@ namespace ShortCommand
         /// </summary>
         private void HideForm()
         {
-            this.Visible = false;
+            Visible = false;
             WindowState = FormWindowState.Minimized;
-            ShowOrHideMenuItem.Text = "显示";
+            ShowOrHideMenuItem.Text = @"显示";
         }
 
         /// <summary>
@@ -196,10 +196,10 @@ namespace ShortCommand
         private void ShowFormAndFocusInputBox()
         {
             WindowState = FormWindowState.Normal;
-            this.Visible = true;
-            this.Activate();
+            Visible = true;
+            Activate();
             cboShortName.Focus();
-            ShowOrHideMenuItem.Text = "隐藏";
+            ShowOrHideMenuItem.Text = @"隐藏";
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace ShortCommand
         private void ExitMenuItem_Click(object sender, EventArgs e)
         {
             //直接关闭
-            this.Dispose();
+            Dispose();
         }
 
         //点击托盘，激活程序
