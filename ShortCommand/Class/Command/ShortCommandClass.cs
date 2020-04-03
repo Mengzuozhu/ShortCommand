@@ -45,13 +45,7 @@ namespace ShortCommand.Class.Command
             upperShortNameAndCommands = new Dictionary<string, string>();
             foreach (var shortNameAndExePath in ShortNameAndCommands)
             {
-                string upperShortName = shortNameAndExePath.Key.ToUpper();
-                if (upperShortNameAndCommands.ContainsKey(upperShortName))
-                {
-                    continue;
-                }
-
-                upperShortNameAndCommands.Add(upperShortName, shortNameAndExePath.Value);
+                upperShortNameAndCommands[shortNameAndExePath.Key.ToUpper()] = shortNameAndExePath.Value;
             }
         }
 

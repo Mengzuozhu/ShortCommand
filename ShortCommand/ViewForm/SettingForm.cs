@@ -14,15 +14,15 @@ namespace ShortCommand.ViewForm
     {
         private int selectRowIndex = -1; //选中行的索引
         private object cellBeginEditValue; //单元格开始编辑的值
-        private readonly ShortCommandTableClass shortCommandTable; //简命令表格
+        private readonly ShortCommandTableHandler commandTableHandler; //简命令表格
         private FinderForm finderForm; //查找窗口
 
         public SettingForm(Dictionary<string, string> shortNameAndCommands)
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            this.KeyPreview = true; //使窗口支持快捷键
-            shortCommandTable = new ShortCommandTableClass(shortNameAndCommands);
+            KeyPreview = true; //使窗口支持快捷键
+            commandTableHandler = new ShortCommandTableHandler(shortNameAndCommands);
         }
 
         private void SettingForm_Load(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace ShortCommand.ViewForm
         private void InitDataGridView()
         {
             dgvCommandAndNames.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            dgvCommandAndNames.DataSource = shortCommandTable.ShortNameAndCommandsTable;
+            dgvCommandAndNames.DataSource = commandTableHandler.ShortNameAndCommandsTable;
         }
 
         /// <summary>
@@ -97,13 +97,13 @@ namespace ShortCommand.ViewForm
         //修改文件路径
         private void ChangeFilePathMenuItem_Click(object sender, EventArgs e)
         {
-            shortCommandTable.ChangeFilePath(selectRowIndex);
+            commandTableHandler.ChangeFilePath(selectRowIndex);
         }
 
         //修改文件夹路径
         private void ChangeFolderPathMenuItem_Click(object sender, EventArgs e)
         {
-            shortCommandTable.ChangeFolderPath(selectRowIndex);
+            commandTableHandler.ChangeFolderPath(selectRowIndex);
         }
 
         #endregion
@@ -127,7 +127,7 @@ namespace ShortCommand.ViewForm
         private void dgvCommandAndNames_DragDrop(object sender, DragEventArgs e)
         {
             string[] filePaths = (string[]) e.Data.GetData(DataFormats.FileDrop, false);
-            shortCommandTable.AddDragFilesToRow(filePaths);
+            commandTableHandler.AddDragFilesToRow(filePaths);
             BeginEditLastRowShortName();
         }
 
@@ -138,7 +138,7 @@ namespace ShortCommand.ViewForm
         {
             int lastRowIndex = dgvCommandAndNames.RowCount - 2;
             dgvCommandAndNames.CurrentCell =
-                dgvCommandAndNames.Rows[lastRowIndex].Cells[ShortCommandTableClass.ShortName];
+                dgvCommandAndNames.Rows[lastRowIndex].Cells[ShortCommandTableHandler.ShortName];
             dgvCommandAndNames.BeginEdit(true);
         }
 
@@ -210,7 +210,7 @@ namespace ShortCommand.ViewForm
             }
 
             string shortName = value.ToString();
-            int sameCellRowIndex = shortCommandTable.GetSameShortNameIgnoreCaseIndex(shortName, currentRowIndex);
+            int sameCellRowIndex = commandTableHandler.GetSameShortNameIgnoreCaseIndex(shortName, currentRowIndex);
             if (sameCellRowIndex != -1)
             {
                 dgvCommandAndNames.Rows[sameCellRowIndex].Selected = true;
@@ -265,22 +265,18 @@ namespace ShortCommand.ViewForm
         //显示重复命令
         private void chbShowRepeatedCommand_CheckedChanged(object sender, EventArgs e)
         {
-            if (chbShowRepeatedCommand.Checked)
-            {
-                dgvCommandAndNames.DataSource = shortCommandTable.ComputeOnlyIncludeRepeatedCommandsTable();
-            }
-            else
-            {
-                dgvCommandAndNames.DataSource = shortCommandTable.MergeRepeatedAndDistinctTable();
-            }
+            dgvCommandAndNames.DataSource = chbShowRepeatedCommand.Checked
+                ? commandTableHandler.ComputeOnlyIncludeRepeatedCommandsTable()
+                : commandTableHandler.MergeRepeatedAndDistinctTable();
         }
 
         //清除无效路径
         private void btnClearInvalidPath_Click(object sender, EventArgs e)
         {
-            shortCommandTable.ClearInvalidPath();
+            commandTableHandler.ClearInvalidPath();
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// 写入配置
         /// </summary>
@@ -290,28 +286,33 @@ namespace ShortCommand.ViewForm
             {
                 return;
             }
+
             //若当前显示的是重复项表格，则合并后再写入配置
             if (chbShowRepeatedCommand.Checked)
             {
-                shortCommandTable.MergeRepeatedAndDistinctTable();
+                commandTableHandler.MergeRepeatedAndDistinctTable();
             }
 
-            shortCommandTable.UpdateShortNameAndCommands();
+            commandTableHandler.UpdateNameAndCommandFromTable();
             AllSettingClass.WriteAllCommandConfigs(GetShortNameAndCommands());
         }
 
         public Dictionary<string, string> GetShortNameAndCommands()
         {
-            return shortCommandTable.ShortNameAndCommands;
+            return commandTableHandler.ShortNameAndCommands;
         }
 
-        //关闭
         private void SettingForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!finderForm.IsNullOrDisposed())
             {
                 finderForm.Dispose();
             }
+        }
+
+        private void btnImportConfig_Click(object sender, EventArgs e)
+        {
+            ConfigImporter.ImportConfig(commandTableHandler);
         }
     }
 }

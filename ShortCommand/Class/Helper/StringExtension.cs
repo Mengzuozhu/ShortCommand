@@ -15,15 +15,5 @@ namespace ShortCommand.Class.Helper
         {
             return string.IsNullOrEmpty(str);
         }
-
-        /// <summary>
-        /// 布尔值转为字符串(true或false)
-        /// </summary>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        public static string BoolToString(this bool b)
-        {
-            return b ? "true" : "false";
-        }
     }
 }
