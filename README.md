@@ -4,7 +4,7 @@
 [![](https://img.shields.io/badge/releases-v1.0.1.0-brightgreen.svg)](https://github.com/Mengzuozhu/ShortCommand/releases)
 
 > #### 使用**自定义命令**，快速打开文件、文件夹、应用和网页，以及唤起网络搜索引擎
-![](https://github.com/Mengzuozhu/ReadmeImage/blob/master/ShortCommand/all.gif)
+![](https://github.com/Mengzuozhu/ReadmeImage/blob/master/ShortCommand/demo.gif)
 
 1.主要功能
 --------
