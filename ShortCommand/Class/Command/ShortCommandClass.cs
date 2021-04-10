@@ -11,7 +11,7 @@ namespace ShortCommand.Class.Command
     /// <summary>
     /// 快捷命令
     /// </summary>
-    class ShortCommandClass
+    public class ShortCommandClass
     {
         /// <summary>
         /// 简称和命令

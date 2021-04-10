@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Speech.Recognition;
 using System.Windows.Forms;
 using ShortCommand.Class.Command;
 using ShortCommand.Class.Display;
 using ShortCommand.Class.Helper;
 using ShortCommand.Class.HotKey;
 using ShortCommand.Class.Setting;
+using ShortCommand.Class.Speech;
 using ShortCommand.ViewForm;
 
 namespace ShortCommand
@@ -17,6 +19,7 @@ namespace ShortCommand
         private ToolTipDisplayClass toolTipDisplay;
         private bool isAutoHideForm;
         private SettingPanelForm settingPanelForm;
+        private SpeechRecognition speechRecognition;
 
         public MainForm()
         {
@@ -44,6 +47,8 @@ namespace ShortCommand
             toolTipDisplay = new ToolTipDisplayClass(cboShortName, shortCommand);
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
             cboShortName.LostFocus += OnLostFocus;
+            speechRecognition = new SpeechRecognition(SpeechRecognizedHandler, shortCommand);
+            speechRecognition.BeginRecognizeAsync();
         }
 
         private void OnLostFocus(object sender, EventArgs e)
@@ -82,9 +87,22 @@ namespace ShortCommand
         {
             if (e.KeyCode != Keys.Enter) return;
 
-            toolTipDisplay.ShowToolTip(cboShortName.Text);
-            shortCommand.RunCommandByShortNameOf(cboShortName.Text, BeginInvokeInsertShortName);
+            RunCommand(cboShortName.Text);
         }
+
+        public void RunCommand(string originalShortName)
+        {
+            toolTipDisplay.ShowToolTip(originalShortName);
+            shortCommand.RunCommandByShortNameOf(originalShortName, BeginInvokeInsertShortName);
+        }
+
+        private void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs e)
+        {
+            string originalShortName = e.Result.Text;
+            cboShortName.Text = originalShortName;
+            RunCommand(originalShortName);
+        }
+
 
         /// <summary>
         /// 异步执行插入简称
@@ -153,6 +171,7 @@ namespace ShortCommand
                     {
                         ActivateOrHideForm();
                     }
+
                     break;
                 //创建窗口
                 case WmCreate:

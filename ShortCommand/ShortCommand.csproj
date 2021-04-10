@@ -42,6 +42,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -62,6 +63,7 @@
     <Compile Include="Class\Setting\ConfigImporter.cs" />
     <Compile Include="Class\Setting\XmlFileLoader.cs" />
     <Compile Include="Class\HotKey\SystemHotKey.cs" />
+    <Compile Include="Class\Speech\SpeechRecognition.cs" />
     <Compile Include="ViewForm\CommandCompareForm.cs">
       <SubType>Form</SubType>
     </Compile>

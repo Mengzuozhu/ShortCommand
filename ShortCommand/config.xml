@@ -19,11 +19,13 @@
     <!--命令/网址信息-->
     <CommandInfos>
       <CommandInfo Command="cmd" ShortName="cmd" />
+      <CommandInfo Command="cmd" ShortName="打开命令行" />
       <CommandInfo Command="calc" ShortName="cal" />
       <CommandInfo Command="taskmgr" ShortName="task" />
       <CommandInfo Command="control.exe" ShortName="ctrl" />
       <CommandInfo Command="http://www.baidu.com" ShortName="百度" />
       <CommandInfo Command="https://www.google.com/" ShortName="google" />
+      <CommandInfo Command="https://www.google.com/" ShortName="打开谷歌" />
     </CommandInfos>
 
     <!--路径信息-->
