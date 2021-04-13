@@ -17,6 +17,7 @@ namespace ShortCommand.Class.Speech
 
         private SpeechRecognitionEngine speechRecognitionEngine;
         private readonly SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
+        private readonly string[] fixControlPhrase = {OpenSpeechText, CloseSpeechText};
 
         public SpeechRecognition(EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler, string[] phrases)
         {
@@ -42,6 +43,7 @@ namespace ShortCommand.Class.Speech
             }
             else
             {
+                EnabledSpeech = false;
                 CloseRecognize();
             }
         }
@@ -57,7 +59,13 @@ namespace ShortCommand.Class.Speech
 
         public void CloseRecognize()
         {
-            speechRecognitionEngine?.Dispose();
+            if (speechRecognitionEngine == null)
+            {
+                return;
+            }
+
+            speechRecognitionEngine.Dispose();
+            speechRecognitionEngine = null;
         }
 
         public bool UpdateEnabledSpeech(string recognizedName)
@@ -65,12 +73,12 @@ namespace ShortCommand.Class.Speech
             if (IsOpenSpeechText(recognizedName))
             {
                 EnabledSpeech = true;
-                speechSynthesizer.Speak(BuildTextToSpeak(OpenSpeechText));
+                speechSynthesizer.SpeakAsync(BuildTextToSpeak(OpenSpeechText));
             }
             else if (recognizedName.Equals(CloseSpeechText))
             {
                 EnabledSpeech = false;
-                speechSynthesizer.Speak(BuildTextToSpeak(CloseSpeechText));
+                speechSynthesizer.SpeakAsync(BuildTextToSpeak(CloseSpeechText));
             }
 
             return EnabledSpeech;
@@ -79,8 +87,7 @@ namespace ShortCommand.Class.Speech
         private void LoadGrammar(string[] phrases)
         {
             Choices choices = new Choices(phrases);
-            string[] fixNames = {OpenSpeechText, CloseSpeechText};
-            choices.Add(fixNames);
+            choices.Add(fixControlPhrase);
             GrammarBuilder grammarBuilder = new GrammarBuilder(choices);
             Grammar grammar = new Grammar(grammarBuilder);
 

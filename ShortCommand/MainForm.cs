@@ -20,7 +20,6 @@ namespace ShortCommand
         private bool isAutoHideForm;
         private SettingPanelForm settingPanelForm;
         private SpeechRecognition speechRecognition;
-        private bool enabledSpeech;
 
         public MainForm()
         {
@@ -51,6 +50,7 @@ namespace ShortCommand
             speechRecognition = new SpeechRecognition(SpeechRecognizedHandler, shortCommand.GetShortNames());
             speechRecognition.OpenOrClose(AppSettingValue.EnableSpeech);
             speechRecognition.EnabledSpeech = AppSettingValue.EnableSpeech;
+            chbEnabledSpeech.Checked = speechRecognition.EnabledSpeech;
         }
 
         private void OnLostFocus(object sender, EventArgs e)
@@ -101,7 +101,9 @@ namespace ShortCommand
         private void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs e)
         {
             string recognizedName = e.Result.Text;
-            if (!speechRecognition.UpdateEnabledSpeech(recognizedName)|| SpeechRecognition.IsOpenSpeechText(recognizedName))
+            bool updateEnabledSpeech = speechRecognition.UpdateEnabledSpeech(recognizedName);
+            chbEnabledSpeech.Checked = updateEnabledSpeech;
+            if (!updateEnabledSpeech|| SpeechRecognition.IsOpenSpeechText(recognizedName))
             {
                 return;
             }
@@ -333,5 +335,10 @@ namespace ShortCommand
         }
 
         #endregion
+
+        private void chbEnabledSpeech_CheckedChanged(object sender, EventArgs e)
+        {
+            speechRecognition.EnabledSpeech = chbEnabledSpeech.Checked;
+        }
     }
 }

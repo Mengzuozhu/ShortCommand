@@ -38,6 +38,7 @@ namespace ShortCommand
             this.ShowOrHideMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cboShortName = new System.Windows.Forms.ComboBox();
+            this.chbEnabledSpeech = new System.Windows.Forms.CheckBox();
             this.NotifyIconMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,11 +92,23 @@ namespace ShortCommand
             this.cboShortName.TabIndex = 5;
             this.cboShortName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboShortName_KeyDown);
             // 
+            // chbEnabledSpeech
+            // 
+            this.chbEnabledSpeech.AutoSize = true;
+            this.chbEnabledSpeech.Location = new System.Drawing.Point(13, 46);
+            this.chbEnabledSpeech.Name = "chbEnabledSpeech";
+            this.chbEnabledSpeech.Size = new System.Drawing.Size(96, 16);
+            this.chbEnabledSpeech.TabIndex = 6;
+            this.chbEnabledSpeech.Text = "语音识别模式";
+            this.chbEnabledSpeech.UseVisualStyleBackColor = true;
+            this.chbEnabledSpeech.CheckedChanged += new System.EventHandler(this.chbEnabledSpeech_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(415, 82);
+            this.Controls.Add(this.chbEnabledSpeech);
             this.Controls.Add(this.cboShortName);
             this.Controls.Add(this.btnSettingForm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -108,6 +121,7 @@ namespace ShortCommand
             this.MouseLeave += new System.EventHandler(this.MainForm_MouseLeave);
             this.NotifyIconMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -119,6 +133,7 @@ namespace ShortCommand
         private System.Windows.Forms.ToolStripMenuItem ShowOrHideMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ExitMenuItem;
         private System.Windows.Forms.ComboBox cboShortName;
+        private CheckBox chbEnabledSpeech;
     }
 }
 
