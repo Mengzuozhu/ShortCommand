@@ -20,7 +20,6 @@ namespace ShortCommand
         private bool isAutoHideForm;
         private SettingPanelForm settingPanelForm;
         private SpeechRecognition speechRecognition;
-        private bool enableSpeech;
 
         public MainForm()
         {
@@ -49,8 +48,7 @@ namespace ShortCommand
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
             cboShortName.LostFocus += OnLostFocus;
             speechRecognition = new SpeechRecognition(SpeechRecognizedHandler, shortCommand.GetShortNames());
-            enableSpeech = AppSettingValue.EnableSpeech;
-            speechRecognition.OpenOrClose(enableSpeech);
+            speechRecognition.OpenOrClose(AppSettingValue.EnableSpeech);
         }
 
         private void OnLostFocus(object sender, EventArgs e)
@@ -294,14 +292,10 @@ namespace ShortCommand
         private void UpdateSettings(Dictionary<string, string> inShortNameAndCommands)
         {
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
-            if (enableSpeech != AppSettingValue.EnableSpeech)
-            {
-                enableSpeech = AppSettingValue.EnableSpeech;
-                speechRecognition.Phrases = shortCommand.GetShortNames();
-                speechRecognition.OpenOrClose(enableSpeech);
-            }
-
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
+
+            speechRecognition.Phrases = shortCommand.GetShortNames();
+            speechRecognition.OpenOrClose(AppSettingValue.EnableSpeech);
             AddAutoCompleteSource();
         }
 
