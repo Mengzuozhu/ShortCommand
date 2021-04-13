@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.EnableSpeechMenuItem = new System.Windows.Forms.CheckBox();
             this.IsAutoHideFormMenuItem = new System.Windows.Forms.CheckBox();
             this.IsAutoStartupMenuItem = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
@@ -36,6 +37,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.EnableSpeechMenuItem);
             this.groupBox1.Controls.Add(this.IsAutoHideFormMenuItem);
             this.groupBox1.Controls.Add(this.IsAutoStartupMenuItem);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -43,10 +45,20 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(10);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(10);
-            this.groupBox1.Size = new System.Drawing.Size(524, 80);
+            this.groupBox1.Size = new System.Drawing.Size(524, 99);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "常规";
+            // 
+            // EnableSpeechMenuItem
+            // 
+            this.EnableSpeechMenuItem.AutoSize = true;
+            this.EnableSpeechMenuItem.Location = new System.Drawing.Point(19, 71);
+            this.EnableSpeechMenuItem.Name = "EnableSpeechMenuItem";
+            this.EnableSpeechMenuItem.Size = new System.Drawing.Size(96, 16);
+            this.EnableSpeechMenuItem.TabIndex = 3;
+            this.EnableSpeechMenuItem.Text = "开启语音识别";
+            this.EnableSpeechMenuItem.UseVisualStyleBackColor = true;
             // 
             // IsAutoHideFormMenuItem
             // 
@@ -72,7 +84,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 113);
+            this.ClientSize = new System.Drawing.Size(544, 129);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CommonSettingForm";
@@ -90,5 +102,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox IsAutoStartupMenuItem;
         private System.Windows.Forms.CheckBox IsAutoHideFormMenuItem;
+        private System.Windows.Forms.CheckBox EnableSpeechMenuItem;
     }
 }

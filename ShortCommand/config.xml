@@ -11,6 +11,8 @@
     <SearchUrl>https://www.google.com/search?q=${word}</SearchUrl>
     <!--浏览器路径-->
     <ExplorerPath></ExplorerPath>
+    <!--是否开启语音识别-->
+    <EnableSpeech>false</EnableSpeech>
 
   </AppSettings>
 

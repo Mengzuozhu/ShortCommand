@@ -1,41 +1,60 @@
 ﻿using System;
 using System.Globalization;
 using System.Speech.Recognition;
-using ShortCommand.Class.Command;
 
 namespace ShortCommand.Class.Speech
 {
     public class SpeechRecognition
     {
-        private EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler;
-        private ShortCommandClass shortCommand; //快捷命令
+        private readonly EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler;
 
-        public SpeechRecognition(EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler,
-            ShortCommandClass shortCommand)
+        public string[] Phrases { get; set; }
+
+        private SpeechRecognitionEngine speechRecognitionEngine;
+
+        public SpeechRecognition(EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler, string[] phrases)
         {
             this.speechRecognizedHandler = speechRecognizedHandler;
-            this.shortCommand = shortCommand;
+            Phrases = phrases;
         }
 
-
-        public void BeginRecognizeAsync()
+        public void OpenOrClose(bool enableSpeech)
         {
-            SpeechRecognitionEngine recognizer = new SpeechRecognitionEngine(new CultureInfo("zh-CN"));
+            if (enableSpeech)
+            {
+                OpenRecognizeAsync();
+            }
+            else
+            {
+                CloseRecognize();
+            }
+        }
 
-            Choices choices = new Choices();
-            choices.Add(shortCommand.GetShortNames());
-            GrammarBuilder grammarBuilder = new GrammarBuilder();
-            grammarBuilder.Append(choices);
+        public void OpenRecognizeAsync()
+        {
+            speechRecognitionEngine = new SpeechRecognitionEngine(new CultureInfo("zh-CN"));
+            LoadGrammar(Phrases);
+            speechRecognitionEngine.SpeechRecognized += speechRecognizedHandler;
+            speechRecognitionEngine.SetInputToDefaultAudioDevice();
+            speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
+        }
+
+        public void CloseRecognize()
+        {
+            speechRecognitionEngine?.Dispose();
+        }
+
+        private void LoadGrammar(string[] phrases)
+        {
+            GrammarBuilder grammarBuilder = new GrammarBuilder(new Choices(phrases));
             Grammar grammar = new Grammar(grammarBuilder);
 
             // 自由文本识别
-            DictationGrammar dictationGrammar = new DictationGrammar();
-            recognizer.LoadGrammar(dictationGrammar);
+            //            DictationGrammar dictationGrammar = new DictationGrammar();
+            //            recognizer.LoadGrammar(dictationGrammar);
+            speechRecognitionEngine.UnloadAllGrammars();
             // 自定义词汇识别
-            recognizer.LoadGrammar(grammar);
-            recognizer.SpeechRecognized += speechRecognizedHandler;
-            recognizer.SetInputToDefaultAudioDevice();
-            recognizer.RecognizeAsync(RecognizeMode.Multiple);
+            speechRecognitionEngine.LoadGrammar(grammar);
         }
     }
 }

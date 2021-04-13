@@ -24,6 +24,7 @@ namespace ShortCommand.ViewForm
         {
             IsAutoStartupMenuItem.Checked = AppSettingValue.IsAutoStartup;
             IsAutoHideFormMenuItem.Checked = AppSettingValue.IsAutoHideForm;
+            EnableSpeechMenuItem.Checked = AppSettingValue.EnableSpeech;
         }
 
         /// <inheritdoc />
@@ -39,6 +40,7 @@ namespace ShortCommand.ViewForm
             }
 
             AppSettingValue.IsAutoHideForm = IsAutoHideFormMenuItem.Checked;
+            AppSettingValue.EnableSpeech = EnableSpeechMenuItem.Checked;
         }
     }
 }

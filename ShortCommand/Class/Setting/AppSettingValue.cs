@@ -14,6 +14,7 @@ namespace ShortCommand.Class.Setting
         private const string IsAutoHideFormName = "IsAutoHideForm";
         private const string SearchUrlName = "SearchUrl";
         private const string ExplorerPathName = "ExplorerPath";
+        private const string EnableSpeechName = "EnableSpeech";
         public const string GoogleSearchEngine = "https://www.google.com/search?q=${word}";
 
         /// <summary>
@@ -72,6 +73,12 @@ namespace ShortCommand.Class.Setting
         {
             get => AllSettingClass.GetSettingBooleanValueFor(IsAutoHideFormName);
             set => AllSettingClass.ChangeSettingValueFor(IsAutoHideFormName, value.ToString().ToLower());
+        }
+
+        public static bool EnableSpeech
+        {
+            get => AllSettingClass.GetSettingBooleanValueFor(EnableSpeechName);
+            set => AllSettingClass.ChangeSettingValueFor(EnableSpeechName, value.ToString().ToLower());
         }
 
         /// <summary>
