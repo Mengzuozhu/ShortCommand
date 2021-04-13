@@ -55,9 +55,9 @@
             this.EnableSpeechMenuItem.AutoSize = true;
             this.EnableSpeechMenuItem.Location = new System.Drawing.Point(19, 71);
             this.EnableSpeechMenuItem.Name = "EnableSpeechMenuItem";
-            this.EnableSpeechMenuItem.Size = new System.Drawing.Size(96, 16);
+            this.EnableSpeechMenuItem.Size = new System.Drawing.Size(120, 16);
             this.EnableSpeechMenuItem.TabIndex = 3;
-            this.EnableSpeechMenuItem.Text = "开启语音识别";
+            this.EnableSpeechMenuItem.Text = "开启语音识别功能";
             this.EnableSpeechMenuItem.UseVisualStyleBackColor = true;
             // 
             // IsAutoHideFormMenuItem

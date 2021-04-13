@@ -1,21 +1,37 @@
 ﻿using System;
 using System.Globalization;
 using System.Speech.Recognition;
+using System.Speech.Synthesis;
 
 namespace ShortCommand.Class.Speech
 {
     public class SpeechRecognition
     {
+        private const string OpenSpeechText = "开启语音识别";
+        private const string CloseSpeechText = "关闭语音识别";
         private readonly EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler;
+
+        public bool EnabledSpeech { get; set; }
 
         public string[] Phrases { get; set; }
 
         private SpeechRecognitionEngine speechRecognitionEngine;
+        private readonly SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer();
 
         public SpeechRecognition(EventHandler<SpeechRecognizedEventArgs> speechRecognizedHandler, string[] phrases)
         {
             this.speechRecognizedHandler = speechRecognizedHandler;
             Phrases = phrases;
+        }
+
+        public static bool IsOpenSpeechText(string recognizedName)
+        {
+            return recognizedName.Equals(OpenSpeechText);
+        }
+
+        private static string BuildTextToSpeak(String text)
+        {
+            return $"已{text}模式";
         }
 
         public void OpenOrClose(bool enableSpeech)
@@ -44,9 +60,28 @@ namespace ShortCommand.Class.Speech
             speechRecognitionEngine?.Dispose();
         }
 
+        public bool UpdateEnabledSpeech(string recognizedName)
+        {
+            if (IsOpenSpeechText(recognizedName))
+            {
+                EnabledSpeech = true;
+                speechSynthesizer.Speak(BuildTextToSpeak(OpenSpeechText));
+            }
+            else if (recognizedName.Equals(CloseSpeechText))
+            {
+                EnabledSpeech = false;
+                speechSynthesizer.Speak(BuildTextToSpeak(CloseSpeechText));
+            }
+
+            return EnabledSpeech;
+        }
+
         private void LoadGrammar(string[] phrases)
         {
-            GrammarBuilder grammarBuilder = new GrammarBuilder(new Choices(phrases));
+            Choices choices = new Choices(phrases);
+            string[] fixNames = {OpenSpeechText, CloseSpeechText};
+            choices.Add(fixNames);
+            GrammarBuilder grammarBuilder = new GrammarBuilder(choices);
             Grammar grammar = new Grammar(grammarBuilder);
 
             // 自由文本识别
