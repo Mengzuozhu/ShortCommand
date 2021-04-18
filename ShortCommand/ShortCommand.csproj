@@ -70,7 +70,7 @@
     <Compile Include="Class\Setting\XmlFileLoader.cs" />
     <Compile Include="Class\HotKey\SystemHotKey.cs" />
     <Compile Include="Class\Speech\DefaultSpeechRecognition.cs" />
-    <Compile Include="Class\Speech\SpeechRecognition.cs" />
+    <Compile Include="Class\Speech\SpeechRecognitionFacade.cs" />
     <Compile Include="Class\Speech\SpeechRecognitionStrategy.cs" />
     <Compile Include="ViewForm\CommandCompareForm.cs">
       <SubType>Form</SubType>

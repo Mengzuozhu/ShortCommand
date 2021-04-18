@@ -20,7 +20,7 @@ namespace ShortCommand
         private ToolTipDisplayClass toolTipDisplay;
         private bool isAutoHideForm;
         private SettingPanelForm settingPanelForm;
-        private SpeechRecognition speechRecognition;
+        private SpeechRecognitionFacade speechRecognitionFacade;
         private DeviceNotification deviceNotification;
 
         public MainForm()
@@ -51,8 +51,8 @@ namespace ShortCommand
             cboShortName.LostFocus += OnLostFocus;
             ISpeechRecognitionStrategy recognitionStrategy =
                 new DefaultSpeechRecognition(SpeechRecognizedHandler, shortCommand.GetShortNames());
-            speechRecognition = new SpeechRecognition(recognitionStrategy);
-            deviceNotification = new DeviceNotification(speechRecognition);
+            speechRecognitionFacade = new SpeechRecognitionFacade(recognitionStrategy);
+            deviceNotification = new DeviceNotification(speechRecognitionFacade);
             UpdateSpeechState();
         }
 
@@ -104,9 +104,9 @@ namespace ShortCommand
         private void SpeechRecognizedHandler(object sender, SpeechRecognizedEventArgs e)
         {
             string recognizedName = e.Result.Text;
-            bool updateEnabledSpeech = speechRecognition.UpdateEnabledSpeech(recognizedName);
+            bool updateEnabledSpeech = speechRecognitionFacade.UpdateEnabledSpeech(recognizedName);
             chbEnabledSpeech.Checked = updateEnabledSpeech;
-            if (!updateEnabledSpeech || SpeechRecognition.IsOpenSpeechText(recognizedName))
+            if (!updateEnabledSpeech || SpeechRecognitionFacade.IsOpenSpeechText(recognizedName))
             {
                 return;
             }
@@ -306,7 +306,7 @@ namespace ShortCommand
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
 
-            speechRecognition.Phrases = shortCommand.GetShortNames();
+            speechRecognitionFacade.Phrases = shortCommand.GetShortNames();
             UpdateSpeechState();
             AddAutoCompleteSource();
         }
@@ -314,7 +314,7 @@ namespace ShortCommand
         private void UpdateSpeechState()
         {
             bool enableSpeech = AppSettingValue.EnableSpeech;
-            speechRecognition.OpenOrClose(enableSpeech);
+            speechRecognitionFacade.OpenOrClose(enableSpeech);
             chbEnabledSpeech.Checked = enableSpeech;
             chbEnabledSpeech.Visible = enableSpeech;
         }
@@ -350,7 +350,7 @@ namespace ShortCommand
 
         private void chbEnabledSpeech_CheckedChanged(object sender, EventArgs e)
         {
-            speechRecognition.EnabledSpeech = chbEnabledSpeech.Checked;
+            speechRecognitionFacade.EnabledSpeech = chbEnabledSpeech.Checked;
         }
 
     }

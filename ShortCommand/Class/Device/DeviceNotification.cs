@@ -6,12 +6,12 @@ namespace ShortCommand.Class.Device
 {
     public class DeviceNotification : IMMNotificationClient
     {
-        private readonly SpeechRecognition speechRecognition;
+        private readonly SpeechRecognitionFacade speechRecognitionFacade;
         private readonly MMDeviceEnumerator deviceEnum = new MMDeviceEnumerator();
 
-        public DeviceNotification(SpeechRecognition speechRecognition)
+        public DeviceNotification(SpeechRecognitionFacade speechRecognitionFacade)
         {
-            this.speechRecognition = speechRecognition;
+            this.speechRecognitionFacade = speechRecognitionFacade;
             deviceEnum.RegisterEndpointNotificationCallback(this);
         }
 
@@ -29,7 +29,7 @@ namespace ShortCommand.Class.Device
 
         public void OnDefaultDeviceChanged(DataFlow flow, Role role, string defaultDeviceId)
         {
-            speechRecognition.OpenOrClose(speechRecognition.EnabledSpeech);
+            speechRecognitionFacade.OpenOrClose(speechRecognitionFacade.EnabledSpeech);
         }
 
         public void OnPropertyValueChanged(string pwstrDeviceId, PropertyKey key)

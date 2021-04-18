@@ -3,7 +3,10 @@ using System.Speech.Synthesis;
 
 namespace ShortCommand.Class.Speech
 {
-    public class SpeechRecognition
+    /// <summary>
+    /// 语音识别统一控制
+    /// </summary>
+    public class SpeechRecognitionFacade
     {
         private const string OpenSpeechText = "开启语音识别";
         private const string CloseSpeechText = "关闭语音识别";
@@ -15,7 +18,7 @@ namespace ShortCommand.Class.Speech
 
         public string[] Phrases { get; set; }
 
-        public SpeechRecognition(ISpeechRecognitionStrategy recognitionStrategy)
+        public SpeechRecognitionFacade(ISpeechRecognitionStrategy recognitionStrategy)
         {
             this.recognitionStrategy = recognitionStrategy;
         }
@@ -63,7 +66,6 @@ namespace ShortCommand.Class.Speech
 
             return EnabledSpeech;
         }
-
 
         private static string BuildTextToSpeak(String text)
         {
