@@ -44,13 +44,19 @@ namespace ShortCommand.Class.Speech
         {
             if (IsOpenSpeechText(recognizedName))
             {
+                if (!EnabledSpeech)
+                {
+                    speechSynthesizer.SpeakAsync(BuildTextToSpeak(OpenSpeechText));
+                }
                 EnabledSpeech = true;
-                speechSynthesizer.SpeakAsync(BuildTextToSpeak(OpenSpeechText));
             }
             else if (recognizedName.Equals(CloseSpeechText))
             {
+                if (EnabledSpeech)
+                {
+                    speechSynthesizer.SpeakAsync(BuildTextToSpeak(CloseSpeechText));
+                }
                 EnabledSpeech = false;
-                speechSynthesizer.SpeakAsync(BuildTextToSpeak(CloseSpeechText));
             }
 
             return EnabledSpeech;
