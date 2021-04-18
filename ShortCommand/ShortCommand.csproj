@@ -56,6 +56,7 @@
     <Compile Include="Class\Helper\FormHelper.cs" />
     <Compile Include="Class\Helper\MessageBoxHelper.cs" />
     <Compile Include="Class\Helper\StringExtension.cs" />
+    <Compile Include="Class\Helper\StringUtil.cs" />
     <Compile Include="Class\Setting\AllSettingClass.cs" />
     <Compile Include="Class\Setting\AppConfigHandler.cs" />
     <Compile Include="Class\Setting\AppSettingValue.cs" />
@@ -63,7 +64,9 @@
     <Compile Include="Class\Setting\ConfigImporter.cs" />
     <Compile Include="Class\Setting\XmlFileLoader.cs" />
     <Compile Include="Class\HotKey\SystemHotKey.cs" />
+    <Compile Include="Class\Speech\DefaultSpeechRecognition.cs" />
     <Compile Include="Class\Speech\SpeechRecognition.cs" />
+    <Compile Include="Class\Speech\SpeechRecognitionStrategy.cs" />
     <Compile Include="ViewForm\CommandCompareForm.cs">
       <SubType>Form</SubType>
     </Compile>

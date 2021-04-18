@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Speech.Recognition;
 using System.Windows.Forms;
 using ShortCommand.Class.Command;
@@ -47,10 +48,10 @@ namespace ShortCommand
             toolTipDisplay = new ToolTipDisplayClass(cboShortName, shortCommand);
             isAutoHideForm = AppSettingValue.IsAutoHideForm;
             cboShortName.LostFocus += OnLostFocus;
-            speechRecognition = new SpeechRecognition(SpeechRecognizedHandler, shortCommand.GetShortNames());
-            speechRecognition.OpenOrClose(AppSettingValue.EnableSpeech);
-            speechRecognition.EnabledSpeech = AppSettingValue.EnableSpeech;
-            chbEnabledSpeech.Checked = speechRecognition.EnabledSpeech;
+            ISpeechRecognitionStrategy recognitionStrategy =
+                new DefaultSpeechRecognition(SpeechRecognizedHandler, shortCommand.GetShortNames());
+            speechRecognition = new SpeechRecognition(recognitionStrategy);
+            UpdateSpeechState();
         }
 
         private void OnLostFocus(object sender, EventArgs e)
@@ -103,10 +104,11 @@ namespace ShortCommand
             string recognizedName = e.Result.Text;
             bool updateEnabledSpeech = speechRecognition.UpdateEnabledSpeech(recognizedName);
             chbEnabledSpeech.Checked = updateEnabledSpeech;
-            if (!updateEnabledSpeech|| SpeechRecognition.IsOpenSpeechText(recognizedName))
+            if (!updateEnabledSpeech || SpeechRecognition.IsOpenSpeechText(recognizedName))
             {
                 return;
             }
+
             cboShortName.Text = recognizedName;
             RunCommand(recognizedName);
         }
@@ -303,8 +305,16 @@ namespace ShortCommand
             shortCommand.UpdateShortNameAndCommands(inShortNameAndCommands);
 
             speechRecognition.Phrases = shortCommand.GetShortNames();
-            speechRecognition.OpenOrClose(AppSettingValue.EnableSpeech);
+            UpdateSpeechState();
             AddAutoCompleteSource();
+        }
+
+        private void UpdateSpeechState()
+        {
+            bool enableSpeech = AppSettingValue.EnableSpeech;
+            speechRecognition.OpenOrClose(enableSpeech);
+            chbEnabledSpeech.Checked = enableSpeech;
+            chbEnabledSpeech.Visible = enableSpeech;
         }
 
         #endregion
