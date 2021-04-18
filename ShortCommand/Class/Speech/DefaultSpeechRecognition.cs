@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Speech.Recognition;
+using ShortCommand.Class.Device;
 using ShortCommand.Class.Helper;
 
 namespace ShortCommand.Class.Speech
@@ -33,10 +34,23 @@ namespace ShortCommand.Class.Speech
         /// <inheritdoc />
         public void OpenRecognizeAsync()
         {
+            if (!DeviceHelper.HasInDevice())
+            {
+                CloseRecognize();
+                return;
+            }
+
             speechRecognitionEngine = new SpeechRecognitionEngine(cultureInfo);
+            try
+            {
+                speechRecognitionEngine.SetInputToDefaultAudioDevice();
+            }
+            catch (InvalidOperationException)
+            {
+                return;
+            }
             AddGrammar(Phrases);
             speechRecognitionEngine.SpeechRecognized += speechRecognizedHandler;
-            speechRecognitionEngine.SetInputToDefaultAudioDevice();
             speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple);
         }
 

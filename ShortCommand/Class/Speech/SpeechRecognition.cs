@@ -48,6 +48,7 @@ namespace ShortCommand.Class.Speech
                 {
                     speechSynthesizer.SpeakAsync(BuildTextToSpeak(OpenSpeechText));
                 }
+
                 EnabledSpeech = true;
             }
             else if (recognizedName.Equals(CloseSpeechText))
@@ -56,11 +57,13 @@ namespace ShortCommand.Class.Speech
                 {
                     speechSynthesizer.SpeakAsync(BuildTextToSpeak(CloseSpeechText));
                 }
+
                 EnabledSpeech = false;
             }
 
             return EnabledSpeech;
         }
+
 
         private static string BuildTextToSpeak(String text)
         {

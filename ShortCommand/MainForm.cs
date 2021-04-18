@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Speech.Recognition;
 using System.Windows.Forms;
 using ShortCommand.Class.Command;
+using ShortCommand.Class.Device;
 using ShortCommand.Class.Display;
 using ShortCommand.Class.Helper;
 using ShortCommand.Class.HotKey;
@@ -21,6 +21,7 @@ namespace ShortCommand
         private bool isAutoHideForm;
         private SettingPanelForm settingPanelForm;
         private SpeechRecognition speechRecognition;
+        private DeviceNotification deviceNotification;
 
         public MainForm()
         {
@@ -51,6 +52,7 @@ namespace ShortCommand
             ISpeechRecognitionStrategy recognitionStrategy =
                 new DefaultSpeechRecognition(SpeechRecognizedHandler, shortCommand.GetShortNames());
             speechRecognition = new SpeechRecognition(recognitionStrategy);
+            deviceNotification = new DeviceNotification(speechRecognition);
             UpdateSpeechState();
         }
 
@@ -350,5 +352,6 @@ namespace ShortCommand
         {
             speechRecognition.EnabledSpeech = chbEnabledSpeech.Checked;
         }
+
     }
 }

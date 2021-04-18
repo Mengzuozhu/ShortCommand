@@ -37,6 +37,9 @@
     <ApplicationIcon>moon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -50,6 +53,8 @@
     <Compile Include="Class\Command\ShortCommandClass.cs" />
     <Compile Include="Class\Command\ShortCommandTableHandler.cs" />
     <Compile Include="Class\Command\WinCommandClass.cs" />
+    <Compile Include="Class\Device\DeviceHelper.cs" />
+    <Compile Include="Class\Device\DeviceNotification.cs" />
     <Compile Include="Class\Display\ToolTipDisplayClass.cs" />
     <Compile Include="Class\Finder\FinderClass.cs" />
     <Compile Include="Class\Helper\FileAndDirectoryHelper.cs" />
@@ -144,6 +149,7 @@
     <EmbeddedResource Include="ViewForm\SettingForm.resx">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

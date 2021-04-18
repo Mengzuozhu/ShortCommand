@@ -31,7 +31,7 @@ namespace ShortCommand.Class.Helper
         /// <param name="message"></param>
         public static void ShowWarningMessageBox(string message)
         {
-            ShowMessageBox(message, @"消提示息", MessageBoxIcon.Warning);
+            ShowMessageBox(message, @"消息", MessageBoxIcon.Warning);
         }
 
         private static void ShowMessageBox(string message, string caption, MessageBoxIcon messageBoxIcon)
